@@ -1,0 +1,30 @@
+{
+  "name": "Атлас историй 4.0 — писательская мастерская",
+  "short_name": "Атлас историй",
+  "description": "Конструктор фэнтези-книг: идеи, POV, конфликты, сюжетные линии, редактируемые главы, сцены, библия мира, рукопись",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#111020",
+  "theme_color": "#141225",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

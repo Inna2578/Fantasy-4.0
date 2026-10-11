@@ -1,0 +1,805 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#141225">
+  <meta name="description" content="Офлайн-писательская мастерская: генератор идей фэнтези, сюжетные линии, сцены, библия мира и редактор рукописи.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Атлас историй">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <title>Атлас историй 4.0 — писательская мастерская</title>
+  <style>
+    :root{--bg:#111020;--panel:#1b1930;--panel2:#24213c;--border:#39344f;--text:#f6f0e7;--muted:#aaa5bd;--gold:#ead2a4;--purple:#b6a0f8;--mint:#9dddd2;--shadow:0 22px 85px #04030e7a;--radius:22px}
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:radial-gradient(ellipse 70% 37% at 84% 0%,#30244a65,transparent 70%),radial-gradient(ellipse 60% 34% at 0% 52%,#1b35404d,transparent 75%),var(--bg);min-height:100vh}
+    button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--mint);outline-offset:3px}
+    .page{max-width:1450px;margin:auto;padding:0 30px 70px}.masthead{display:flex;justify-content:space-between;align-items:center;padding:26px 0;border-bottom:1px solid #ffffff16;gap:16px}.identity{display:flex;align-items:center;gap:13px}.emblem{height:44px;width:44px;border-radius:14px;background:linear-gradient(140deg,#e6d3a4,#a48ce8);display:grid;place-items:center;color:#231b36;font-size:24px;box-shadow:0 3px 24px #ba9de445}.brand{font-family:Georgia,"Times New Roman",serif;font-size:23px;letter-spacing:.1px}.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:2.5px;color:var(--muted);margin-top:3px}.pill{display:inline-flex;align-items:center;gap:7px;border:1px solid #7a75924d;background:#ffffff09;color:#d4c6ea;padding:9px 14px;border-radius:100px;font-size:12px}.pill .dot{height:7px;width:7px;background:#b8e9cc;border-radius:50%;box-shadow:0 0 12px #b8e9cc90}
+    .hero{padding:58px 0 42px;position:relative}.hero .kicker{font-size:11px;font-weight:700;color:var(--purple);letter-spacing:2.3px;text-transform:uppercase}.hero h1{font-family:Georgia,"Times New Roman",serif;max-width:860px;font-size:clamp(42px,5.2vw,77px);letter-spacing:-2.6px;line-height:1.06;font-weight:400;margin:17px 0 18px}.hero h1 em{color:var(--gold);font-weight:400}.hero p{max-width:620px;font-size:16px;line-height:1.75;color:#b9b5c5;margin:0}
+    .workspace{display:grid;grid-template-columns:350px minmax(0,1fr);align-items:start;gap:24px}.controls,.result{min-width:0}.control-card,.story-shell,.saved-panel{background:linear-gradient(165deg,#211e36,#171628);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}.control-card{padding:27px}.panel-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}.panel-heading h2{font-family:Georgia,serif;font-weight:400;font-size:26px;margin:0}.index-badge{font-size:10px;color:var(--gold);border:1px solid #e5c89866;border-radius:100px;padding:6px 9px;letter-spacing:1.2px}.field{display:block;margin:0 0 21px}.field-label{display:block;font-size:12px;font-weight:700;letter-spacing:.4px;color:#dcd8e8;margin-bottom:9px}.field-hint{display:block;color:var(--muted);font-size:11px;margin-top:7px}.select-wrap{position:relative}select,input[type=text]{width:100%;border:1px solid #514a66;border-radius:11px;background:#141226;color:var(--text);padding:13px 14px;min-height:47px}select{appearance:none;padding-right:38px}.select-wrap:after{content:"⌄";position:absolute;right:15px;top:8px;font-size:25px;color:#c5b6ee;pointer-events:none}input::placeholder{color:#777088}.divider{height:1px;background:#ffffff16;margin:23px 0}.toggle-row{display:flex;flex-direction:column;gap:15px}.check{display:flex;align-items:center;gap:11px;color:#d3cee2;font-size:13px;cursor:pointer}.check input{appearance:none;width:19px;height:19px;flex:none;border:1px solid #756d93;border-radius:6px;background:#100f21;position:relative}.check input:checked{background:#bcaaef;border-color:#bcaaef}.check input:checked:after{content:"✓";color:#221932;font-size:15px;position:absolute;left:3px;top:-2px;font-weight:900}.primary{border:0;border-radius:12px;background:linear-gradient(105deg,#ead5a9,#cbb5ed);color:#241d34;font-weight:800;padding:15px 18px;min-height:52px;display:flex;align-items:center;justify-content:center;gap:9px;width:100%;box-shadow:0 9px 25px #dab0fa1b;transition:transform .2s,filter .2s}.primary:hover{transform:translateY(-2px);filter:brightness(1.07)}.secondary{border:1px solid #685d87;color:#dbd2ef;background:transparent;border-radius:12px;padding:11px 16px;min-height:44px;transition:background .2s}.secondary:hover{background:#ffffff0c}.buttonrow{display:flex;gap:9px;margin-top:11px}.buttonrow>*{flex:1}.note{color:#9994ad;font-size:11px;line-height:1.65;text-align:center;margin:17px 0 0}
+    .saved-panel{padding:24px;margin-top:21px;box-shadow:none}.saved-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.saved-header h3{font-size:15px;margin:0}.saved-number{font-size:12px;color:#a8d9cf}.empty-favs{font-size:12px;line-height:1.65;color:var(--muted);margin:0}.fav-list{display:flex;flex-direction:column;gap:9px;max-height:340px;overflow:auto}.fav-item{background:#121123;border-radius:10px;border:1px solid #403b55;display:flex;align-items:center;gap:7px;padding:7px}.fav-open{flex:1;min-width:0;border:0;background:transparent;color:#f0e7ec;text-align:left;padding:7px}.fav-title{display:block;font-size:12px;font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fav-meta{display:block;color:var(--muted);font-size:10px;margin-top:5px}.fav-remove{border:0;background:transparent;color:#baaebf;padding:7px;font-size:17px;border-radius:7px}.fav-remove:hover{background:#70394555}
+    .story-shell{overflow:hidden;box-shadow:var(--shadow)}.story-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#29253d;border-bottom:1px solid #ffffff18;padding:18px 29px;flex-wrap:wrap}.story-bar .left-label{font-size:11px;text-transform:uppercase;letter-spacing:1.8px;color:#bcb2d6}.story-actions{display:flex;gap:8px;flex-wrap:wrap}.action-btn{display:inline-flex;align-items:center;gap:8px;border:1px solid #665b80;border-radius:8px;background:#ffffff05;color:#eee6f5;padding:9px 12px;font-size:12px}.action-btn:hover{background:#ffffff13}.action-btn.active{border-color:#d6bc8f;color:var(--gold)}.story-content{padding:38px 42px 42px}.story-topline{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}.tag{display:inline-block;font-size:10px;color:#c8b5f0;background:#8470aa1e;border:1px solid #947cb445;padding:7px 10px;border-radius:100px;letter-spacing:.4px}.tag.gold{color:var(--gold);background:#ccae7b11;border-color:#c4aa7f44}.story-title{font-family:Georgia,serif;font-weight:400;font-size:clamp(31px,3.4vw,52px);letter-spacing:-1.1px;line-height:1.15;margin:0 0 19px}.logline{font-family:Georgia,serif;font-size:clamp(17px,1.7vw,23px);line-height:1.52;color:#eadcc8;border-left:3px solid #cfb78c;padding-left:19px;margin:0 0 32px}.section-title{font-size:11px;color:var(--gold);text-transform:uppercase;font-weight:800;letter-spacing:1.6px;margin:0 0 15px}.story-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-bottom:37px}.fact{background:#100f1f8a;border:1px solid #454055;border-radius:14px;padding:19px 20px;min-height:117px}.fact .label{color:#b4a1d7;font-size:10px;text-transform:uppercase;letter-spacing:1.3px;font-weight:700;margin-bottom:10px}.fact p{font-size:13px;line-height:1.7;color:#e1dbea;margin:0;overflow-wrap:anywhere}.timeline{position:relative;margin:4px 0 34px;padding-left:1px}.beat{display:grid;grid-template-columns:29px 1fr;gap:13px;position:relative;padding-bottom:20px}.beat:not(:last-child):before{content:"";position:absolute;left:13px;top:25px;bottom:0;width:1px;background:#655778}.beat-n{width:28px;height:28px;display:grid;place-items:center;border:1px solid #9d81bc;border-radius:50%;color:#dbc4f6;font-size:11px;background:#29223e;z-index:1}.beat h4{margin:3px 0 8px;font-size:14px;font-weight:750}.beat p{color:#c6c0d0;font-size:13px;line-height:1.8;margin:0}.ending{padding:23px 25px;background:linear-gradient(115deg,#2c2944,#193036);border:1px solid #77738d6e;border-radius:14px;display:grid;grid-template-columns:1fr;gap:9px;margin-bottom:25px}.ending .label{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mint);font-weight:750}.ending p{margin:0;color:#f2eff4;line-height:1.75;font-size:14px}.prompt-box{border-top:1px solid #ffffff20;padding-top:22px}.prompt-box strong{display:block;color:var(--gold);font-size:12px;margin-bottom:8px}.prompt-box p{color:#afa9bf;font-size:13px;line-height:1.7;margin:0}.footer{text-align:center;color:#8f879f;font-size:12px;margin-top:31px}.footer span{color:#d5bf96}.toast{position:fixed;z-index:100;left:50%;bottom:32px;transform:translate(-50%,20px);color:#21202d;background:#ede0c8;border-radius:100px;padding:12px 19px;font-size:13px;font-weight:700;box-shadow:0 9px 40px #0008;opacity:0;pointer-events:none;transition:transform .2s,opacity .2s;max-width:90vw;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}
+    @media(max-width:1060px){.workspace{grid-template-columns:305px minmax(0,1fr)}.story-content{padding:30px 27px}.control-card{padding:22px}.story-grid{grid-template-columns:1fr}}@media(max-width:730px){.page{padding:0 16px 44px}.masthead{padding:16px 0}.brand{font-size:18px}.emblem{width:37px;height:37px;font-size:20px}.pill{font-size:10px;padding:7px 9px}.hero{padding:39px 0 28px}.hero h1{letter-spacing:-1.5px}.hero p{font-size:14px}.workspace{grid-template-columns:1fr}.story-content{padding:25px 20px}.story-bar{padding:15px 19px}.story-grid{grid-template-columns:1fr 1fr}.control-card{padding:23px}.saved-panel{padding:20px}.controls{display:contents}.control-card{order:0}.result{order:1}.saved-panel{order:2;margin-top:0}.fact{padding:14px;min-height:0}.fact p{font-size:12px}}@media(max-width:440px){.story-grid{grid-template-columns:1fr}.story-actions{width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}.action-btn{padding:8px 7px;font-size:11px;justify-content:center;gap:4px}.eyebrow{letter-spacing:1px}.pill{display:none}.story-title{font-size:33px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+    /* Мастерская 4.0 */
+    .studio-tabs{display:flex;gap:4px;padding:11px 14px 0;background:#201c35;border-bottom:1px solid #3d3855;overflow-x:auto;scrollbar-width:thin;scrollbar-color:#655578 transparent}
+    .studio-tab{padding:12px 14px 14px;white-space:nowrap;color:#b9b0ce;background:transparent;border:0;border-bottom:3px solid transparent;border-radius:7px 7px 0 0;font-size:12px;font-weight:750}
+    .studio-tab:hover{background:#ffffff0b;color:var(--text)}.studio-tab.active{color:#ebd3a1;border-bottom-color:#ebd3a1;background:#e2cb9f0b}
+    .studio-panel[hidden]{display:none!important}.studio-panel{animation:fadeIn .18s ease}@keyframes fadeIn{from{opacity:.65;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+    .tab-heading h3,.minor-heading h3{font-family:Georgia,serif;font-weight:400;font-size:clamp(24px,3vw,35px);margin:7px 0 11px}.tab-lead{font-size:13px;line-height:1.8;color:#c2bacf;margin:0 0 21px}
+    .insight-card{background:linear-gradient(140deg,#30304b,#1a2c38);border:1px solid #77688a;border-radius:14px;padding:21px 23px;margin:19px 0 27px}.insight-card strong{color:#e6d0a2;font-size:12px;letter-spacing:.5px}.insight-card p{font-size:13px;line-height:1.8;color:#ece6e8;margin:9px 0 0}.insight-card .micro-label{margin-top:19px;color:#b9a7da;font-size:10px;letter-spacing:1.2px;text-transform:uppercase}.insight-card p.sample-line{font-family:Georgia,serif;font-size:17px;color:#e6d7c8;font-style:italic}
+    .minor-heading{display:flex;justify-content:space-between;align-items:center;gap:13px;margin:10px 0 20px;flex-wrap:wrap}.minor-heading h4{font-size:16px;margin:0;color:#f1e7eb}
+    .mini-btn{border:1px solid #796a98;background:#2b2540;color:#eee3fa;border-radius:9px;padding:10px 12px;font-size:12px;white-space:nowrap}.mini-btn:hover{background:#403352}
+    .character-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.character-card{padding:22px;border-radius:15px;background:linear-gradient(150deg,#2b263f,#171829);border:1px solid #4e4563}.character-card .char-role{color:var(--purple);font-size:11px;letter-spacing:1.4px;text-transform:uppercase}.character-card h4{font:400 23px Georgia,serif;margin:10px 0 15px;color:#f7efe3}.character-card dl{margin:0}.character-card dt{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#b29ecc;margin-top:14px}.character-card dd{margin:5px 0 0;font-size:13px;line-height:1.65;color:#eee4ed}
+    .chapters{display:flex;flex-direction:column;gap:10px}.chapter{background:#151427;border:1px solid #4e4565;border-radius:12px;overflow:hidden}.chapter summary{cursor:pointer;list-style:none;display:flex;gap:12px;align-items:center;padding:15px 16px}.chapter summary::-webkit-details-marker{display:none}.chapter-number{display:grid;place-items:center;width:32px;height:32px;flex:none;border-radius:9px;background:#a487c333;color:#d6bdf7;font-weight:800;font-size:12px}.chapter-title{flex:1;min-width:0}.chapter-title strong{display:block;font-size:13px;font-weight:750;color:#f1e7ea}.chapter-title small{display:block;margin-top:5px;color:#aaa0bd;font-size:11px}.chapter-arrow{color:#b9a0cc;transition:transform .2s}.chapter[open] .chapter-arrow{transform:rotate(90deg)}.chapter-body{border-top:1px solid #40384f;padding:15px 18px 18px 61px}.chapter-body p{margin:0 0 12px;font-size:12px;line-height:1.85;color:#cfc9d5}.chapter-body p strong{color:#e6d2aa}.chapter-body p:last-child{margin-bottom:0}
+    .author-box{margin-top:29px;padding-top:22px;border-top:1px solid #ffffff16}.author-box textarea{min-height:125px;resize:vertical;width:100%;color:#efeaf2;background:#131121;border:1px solid #555071;border-radius:11px;padding:14px;line-height:1.6;font-size:13px}.author-box small{display:block;color:#9f96b5;margin-top:7px;font-size:11px}.story-actions{align-items:center}
+    @media(max-width:1060px){.character-grid{grid-template-columns:1fr}}@media(max-width:730px){.studio-tab{font-size:12px;padding:12px}.character-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.studio-tabs{padding-left:8px}.story-content{padding-top:27px}.chapter-body{padding:15px 15px 17px}}@media(max-width:540px){.character-grid{grid-template-columns:1fr}.chapter-body{padding:15px}.tab-heading h3{font-size:29px}}
+
+    /* Рабочая мастерская 4.0: поля, карточки, статус и мобильная верстка */
+    .new-panel-title{font:400 clamp(28px,3vw,37px) Georgia,serif;margin:5px 0 14px}
+    .autosave-status{font-size:12px;color:var(--mint);margin:0 0 24px}
+    .studio-sectionhead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:20px 0 13px}
+    .studio-sectionhead h4{font:400 22px Georgia,serif;margin:0;color:#f0e1cf}
+    .studio-subtitle{font-size:11px;color:#aaa2bd}
+    .editor-card{border:1px solid #4d465e;border-radius:16px;padding:19px 21px;margin:0 0 16px;background:linear-gradient(150deg,#29243d,#171629)}
+    .editor-card>.studio-sectionhead:first-child{margin:0 0 17px}
+    .edit-cardhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 17px}
+    .edit-cardhead strong{font:400 22px Georgia,serif}
+    .edit-field{display:block;margin:0 0 15px;min-width:0}
+    .edit-field:last-child{margin-bottom:0}
+    .edit-label{display:block;margin:0 0 8px;font-size:11px;font-weight:750;letter-spacing:.3px;color:#d5c5e3}
+    .studio-input{display:block;width:100%;min-width:0;border:1px solid #655776;background:#141324;border-radius:10px;color:#f8f0f7;padding:11px 13px;font-size:13px;line-height:1.55;appearance:auto}
+    .studio-input:focus{border-color:#c4b5ec}
+    .studio-textarea{resize:vertical;min-height:75px;max-height:none}
+    .edit-hint{display:block;font-size:11px;color:#aaa2bd;margin-top:5px}
+    .row-wrap{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin:15px 0 22px}
+    .row-wrap>.mini-btn,.row-wrap>.ghost-danger{white-space:normal}
+    .ghost-danger{border:1px solid #965f6b;color:#f0c4c8;background:#51283755;border-radius:9px;padding:9px 11px;font-size:12px}
+    .ghost-danger:hover{background:#68314188}
+    .editable-chapter-body{padding:19px 24px 16px}
+    .editable-chapter-body .row-wrap{margin-bottom:0}
+    .metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 28px}
+    .metric{border:1px solid #64577b;background:#211e38;border-radius:13px;padding:16px 10px;min-width:0}
+    .metric span{display:block;color:#b8aec7;font-size:10px;line-height:1.4;min-height:28px}
+    .metric strong{display:block;font:400 28px Georgia,serif;color:var(--gold);margin:7px 0 0}
+    .audit-list{display:grid;gap:10px;margin:0 0 24px}
+    .audit-item{border:1px solid #66526a;background:#2d243a;padding:15px 17px;border-radius:11px}
+    .audit-item.audit-warn{border-color:#99656a;background:#3a2835}
+    .audit-item.audit-pass{border-color:#55786e;background:#213a39}
+    .audit-item.audit-tip{border-color:#706482;background:#29253c}
+    .audit-item strong{font-size:13px}.audit-item p{color:#d0c7d6;font-size:12px;line-height:1.65;margin:7px 0 0}
+    .audit-good{color:#a4dfc4;font-size:13px}
+    @media(max-width:850px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:540px){.editor-card{padding:17px 15px}.editable-chapter-body{padding:16px}.studio-input{font-size:16px}.metric{padding:13px 11px}.studio-tab{padding:12px 13px}.studio-sectionhead h4{font-size:20px}}
+  </style>
+</head>
+<body>
+<div class="page">
+<header class="masthead">
+  <div class="identity"><div class="emblem" aria-hidden="true">✧</div><div><div class="brand">Атлас историй</div><div class="eyebrow">Студия фэнтези-романов</div></div></div>
+  <div class="pill"><span class="dot"></span> Работает без нейросети и регистрации</div>
+</header>
+<section class="hero"><div class="kicker">Писательская мастерская • Версия 4.0</div><h1>Открой дверь<br>в <em>новый мир.</em></h1><p>От случайной идеи до собственной рукописи: редактируй мир и персонажей, веди сюжетные линии, конструируй сцены и пиши главы в одном месте.</p></section>
+<main class="workspace">
+  <aside class="controls" aria-label="Настройки генерации">
+    <section class="control-card">
+      <div class="panel-heading"><h2>Настрой историю</h2><span class="index-badge">СТУДИЯ 4.0</span></div>
+      <label class="field"><span class="field-label">Поджанр фэнтези</span><span class="select-wrap"><select id="genre"><option value="epic">⚔ Эпическое</option><option value="dark">☾ Тёмное</option><option value="urban">✦ Городское</option><option value="romance">♡ Романтическое</option><option value="fairy">❀ Сказочное</option><option value="academy">◇ Академическое</option></select></span></label>
+      <label class="field"><span class="field-label">Атмосфера</span><span class="select-wrap"><select id="tone"><option value="mysterious">Таинственная</option><option value="dark">Мрачная</option><option value="bright">Светлая</option><option value="grand">Эпическая</option><option value="ironic">Ироничная</option></select></span></label>
+      <label class="field"><span class="field-label">Формат произведения</span><span class="select-wrap"><select id="length"><option value="short">Рассказ · 5 сцен</option><option value="novella" selected>Повесть · 12 глав</option><option value="novel">Роман · 24 главы</option></select></span></label>
+      <label class="field"><span class="field-label">Главная тема</span><span class="select-wrap"><select id="theme"><option value="memory">Память и идентичность</option><option value="freedom">Свобода и власть</option><option value="trust">Доверие и предательство</option><option value="loss">Цена утраты</option><option value="belonging">Поиск своего места</option><option value="truth">Правда и иллюзия</option></select></span></label>
+      <label class="field"><span class="field-label">Точка зрения (POV)</span><span class="select-wrap"><select id="pov">
+        <option value="third" selected>Третье лицо · ограниченная</option>
+        <option value="first">Первое лицо · «я»</option>
+        <option value="omniscient">Третье лицо · всеведущий</option>
+        <option value="dual">Два POV · чередование</option>
+        <option value="multi">Несколько POV</option>
+        <option value="unreliable">Ненадёжный рассказчик</option>
+        <option value="second">Второе лицо · «ты»</option>
+        <option value="epistolary">Письма и хроники</option>
+      </select></span></label>
+      <label class="field"><span class="field-label">Структура сюжета</span><span class="select-wrap"><select id="structure">
+        <option value="three" selected>Трёхактная · 3 акта</option>
+        <option value="hero">Путь героя · 12 этапов</option>
+        <option value="savecat">Save the Cat · 15 битов</option>
+        <option value="five">Пятиактная · 5 актов</option>
+        <option value="seven">Семь сюжетных точек</option>
+        <option value="circle">Круг истории · 8 шагов</option>
+        <option value="fichte">Кривая Фихте · нарастание</option>
+        <option value="kishotenketsu">Кисётэнкэцу · 4 части</option>
+        <option value="nonlinear">Нелинейная мозаика</option>
+      </select></span></label>
+      <label class="field"><span class="field-label">Тип финала</span><span class="select-wrap"><select id="endType">
+        <option value="hopeful" selected>Свет с последствиями</option>
+        <option value="bittersweet">Горько-сладкий</option>
+        <option value="open">Открытый</option>
+        <option value="tragic">Трагический</option>
+        <option value="unexpected">Неожиданный</option>
+      </select></span></label>
+      <label class="field"><span class="field-label">Имя главного героя <span style="color:#8b83a3;font-weight:400">(необязательно)</span></span><input type="text" id="heroName" maxlength="45" placeholder="Например, Элиан"></label>
+      <div class="divider"></div>
+      <div class="toggle-row"><label class="check"><input type="checkbox" id="keepWorld"><span>Сохранить мир при генерации</span></label><label class="check"><input type="checkbox" id="keepCore"><span>Сохранить сюжетное ядро</span></label></div>
+      <div class="divider"></div>
+      <button class="primary" id="generate" type="button"><span>✧</span> Создать новый сюжет <span>↗</span></button>
+      <noscript><p style="padding:12px;margin:12px 0;background:#46334f;color:#fff5df;border-radius:10px;font-size:13px;line-height:1.6">В этом просмотрщике JavaScript выключен. Чтобы генератор работал, откройте приложение по опубликованной ссылке в Safari, Chrome или другом браузере.</p></noscript>
+      <div class="buttonrow"><button class="secondary" id="surprise" type="button">🎲 Случайные настройки</button></div>
+      <p class="note">После генерации открой вкладку «Книга»: отредактируй замысел, линии, главы и сцены. Все изменения сохраняются в браузере. Скачивай JSON-копию для защиты работы.</p>
+    </section>
+    <section class="saved-panel" id="saved"><div class="saved-header"><h3>☆ Избранные истории</h3><span class="saved-number" id="favoritesCount">0 сохранено</span></div><p class="empty-favs" id="emptyFavorites">Нажми «Сохранить» над понравившимся сюжетом — он останется здесь даже после закрытия приложения.</p><div class="fav-list" id="favoritesList"></div></section>
+  </aside>
+  <section class="result" aria-label="Созданная история">
+    <article class="story-shell">
+      <div class="story-bar"><span class="left-label">✧ Твоя история / <span id="storyNumber">001</span></span><div class="story-actions"><button class="action-btn" id="save" type="button" title="Сохранить историю">☆ <span id="saveLabel">Сохранить</span></button><button class="action-btn" id="copy" type="button" title="Скопировать весь текст">⧉ Копировать</button><button class="action-btn" id="export" type="button" title="Скачать Markdown">↓ Скачать</button></div></div>
+      <div class="studio-tabs" id="studioTabs" role="tablist" aria-label="Разделы истории">
+        <button type="button" class="studio-tab active" role="tab" id="tab-idea" aria-controls="panel-idea" aria-selected="true" data-tab="idea">✦ Идея</button>
+        <button type="button" class="studio-tab" role="tab" id="tab-structure" aria-controls="panel-structure" aria-selected="false" data-tab="structure">◇ Структура</button>
+        <button type="button" class="studio-tab" role="tab" id="tab-characters" aria-controls="panel-characters" aria-selected="false" data-tab="characters">♙ Персонажи</button>
+        <button type="button" class="studio-tab" role="tab" id="tab-world" aria-controls="panel-world" aria-selected="false" data-tab="world">⚝ Мир и магия</button>
+        <button type="button" class="studio-tab" role="tab" id="tab-book" aria-controls="panel-book" aria-selected="false" data-tab="book">✎ Книга</button>
+        <button type="button" class="studio-tab" role="tab" id="tab-lines" aria-controls="panel-lines" aria-selected="false" data-tab="lines">≋ Линии и конфликты</button>
+        <button type="button" class="studio-tab" role="tab" id="tab-chapters" aria-controls="panel-chapters" aria-selected="false" data-tab="chapters">☷ Главы</button>
+        <button type="button" class="studio-tab" role="tab" id="tab-scenes" aria-controls="panel-scenes" aria-selected="false" data-tab="scenes">▤ Сцены</button>
+        <button type="button" class="studio-tab" role="tab" id="tab-bible" aria-controls="panel-bible" aria-selected="false" data-tab="bible">◈ Библия мира</button>
+        <button type="button" class="studio-tab" role="tab" id="tab-audit" aria-controls="panel-audit" aria-selected="false" data-tab="audit">✓ Проверка</button>
+      </div><div class="story-content" id="storyContent" aria-live="polite">
+      <section class="studio-panel" id="panel-idea" role="tabpanel" aria-labelledby="tab-idea">
+        <div class="story-topline" id="tags"></div>
+        <h2 class="story-title" id="storyTitle"></h2>
+        <p class="logline" id="logline"></p>
+        <h3 class="section-title">Мир и движущие силы</h3>
+        <div class="story-grid" id="storyFacts"></div>
+        <h3 class="section-title">Сюжетный маршрут</h3>
+        <div class="timeline" id="timeline"></div>
+        <div class="ending"><div class="label">✦ Возможный финал</div><p id="storyEnding"></p></div>
+        <div class="prompt-box"><strong>Вопрос, который делает историю глубже</strong><p id="storyQuestion"></p></div>
+        <div class="author-box"><label for="authorNotes" class="section-title">Заметки автора</label><textarea id="authorNotes" placeholder="Запиши свои идеи, мотивы, сцены или изменения. Заметки сохраняются на этом устройстве."></textarea><small>Заметки входят в избранное и экспортируемый файл.</small></div>
+      </section>
+      <section class="studio-panel" id="panel-structure" role="tabpanel" aria-labelledby="tab-structure" hidden>
+        <div class="tab-heading"><div><div class="section-title">Драматургия</div><h3 id="structureHeading"></h3><p class="tab-lead" id="structureDescription"></p></div></div>
+        <div class="insight-card"><strong>POV и фокализация</strong><p id="povAdvice"></p><div class="micro-label">Как может звучать сцена</div><p class="sample-line" id="povSample"></p></div>
+        <div class="minor-heading"><h4>Этапы истории</h4><button class="mini-btn" type="button" data-reroll="twist">↻ Другой поворот</button></div><div class="timeline" id="structureTimeline"></div>
+      </section>
+      <section class="studio-panel" id="panel-characters" role="tabpanel" aria-labelledby="tab-characters" hidden>
+        <div class="minor-heading"><div><div class="section-title">Актёры конфликта</div><h3>Персонажи и их арки</h3></div><button class="mini-btn" type="button" data-reroll="characters">↻ Пересоздать</button></div>
+        <div class="character-grid" id="characterCards"></div>
+        <div class="insight-card"><strong>Эмоциональная линия</strong><p id="relationshipLine"></p></div>
+      </section>
+      <section class="studio-panel" id="panel-world" role="tabpanel" aria-labelledby="tab-world" hidden>
+        <div class="minor-heading"><div><div class="section-title">Атлас мира</div><h3>Мир, культура и магия</h3></div><button class="mini-btn" type="button" data-reroll="world">↻ Другой мир</button></div>
+        <div class="story-grid" id="worldFacts"></div>
+        <div class="minor-heading"><h4>Магическая система</h4><button class="mini-btn" type="button" data-reroll="magic">↻ Новая система</button></div>
+        <div class="story-grid" id="magicFacts"></div>
+        <div class="insight-card"><strong>Проверка на драматургию</strong><p id="worldConflict"></p></div>
+      </section>
+      <section class="studio-panel" id="panel-chapters" role="tabpanel" aria-labelledby="tab-chapters" hidden>
+        <div class="minor-heading"><div><div class="section-title">Рабочий синопсис</div><h3 id="chapterHeading"></h3></div><button class="mini-btn" type="button" id="expandChapters">Развернуть все</button></div>
+        <p class="tab-lead" id="chapterInfo"></p>
+        <div class="row-wrap" id="chaptersActions" style="margin:0 0 16px"></div>
+        <div class="chapters" id="chapterCards"></div>
+      </section>
+      <section class="studio-panel" id="panel-book" role="tabpanel" aria-labelledby="tab-book" hidden>
+        <div class="section-title">Рабочий проект и рукопись</div><h3 class="new-panel-title">Твоя книга</h3><p class="tab-lead">Здесь идея становится собственной историей. Всё можно переписать — от названия до финала.</p>
+        <p class="autosave-status" id="saveStatus" aria-live="polite">✓ Изменения сохраняются на этом устройстве</p>
+        <div id="bookEditor"></div>
+      </section>
+      <section class="studio-panel" id="panel-lines" role="tabpanel" aria-labelledby="tab-lines" hidden>
+        <div class="section-title">Драматургия и взаимодействие арок</div><h3 class="new-panel-title">Линии и конфликты</h3><div id="linesEditor"></div>
+      </section>
+      <section class="studio-panel" id="panel-scenes" role="tabpanel" aria-labelledby="tab-scenes" hidden>
+        <div class="section-title">Конструктор эпизодов</div><h3 class="new-panel-title">Сцены</h3><div id="scenesEditor"></div>
+      </section>
+      <section class="studio-panel" id="panel-bible" role="tabpanel" aria-labelledby="tab-bible" hidden>
+        <div class="section-title">Внутренний канон</div><h3 class="new-panel-title">Библия мира</h3><div id="bibleEditor"></div>
+      </section>
+      <section class="studio-panel" id="panel-audit" role="tabpanel" aria-labelledby="tab-audit" hidden>
+        <div class="section-title">Самопроверка черновика</div><h3 class="new-panel-title">Проверка связности</h3><div id="auditEditor"></div>
+      </section>
+      </div>
+    </article>
+    <div class="footer">Каждый сюжет — <span>начало</span>, а не готовые границы твоей истории. ✧</div>
+  </section>
+</main>
+</div><input type="file" id="projectFileInput" accept=".json,application/json" hidden aria-label="Открыть сохранённый проект"><div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(() => {
+'use strict';
+const $ = (id) => document.getElementById(id);
+const pick = a => a[Math.floor(Math.random() * a.length)];
+const sampleOther=(items, old) => {let pool=items.filter(x=>x!==old);return pick(pool.length?pool:items)};
+const GENRES={
+ epic:{name:'Эпическое фэнтези', worlds:[{name:'королевство Семи перевалов',detail:'Семь древних крепостей удерживают последнюю дорогу между живыми землями и забытым континентом.',magic:'Договоры с горными духами придают слову силу закона; нарушенная клятва меняет ландшафт.',cost:'За каждую сильную клятву приходится отдавать одно дорогое воспоминание.'},{name:'архипелаг парящих островов',detail:'Острова дрейфуют над морем облаков, а их сближение всякий раз грозит войной.',magic:'Воздушные течения повинуются музыке, но только сыгранной на инструментах из метеоритного стекла.',cost:'Каждый полёт забирает у музыканта часть слуха.'},{name:'империя под двойным солнцем',detail:'Два солнца поочерёдно освещают разные эпохи; границы прошлого иногда проступают прямо на полях.',magic:'Письмена на бронзе позволяют удержать один миг от исчезновения.',cost:'Каждая остановленная минута ускоряет старение того, кто её удерживает.'}],heroes:['последний ученик хранителей пограничных клятв','проводница караванов, которой запрещено пересекать границу','писец при дворе, умеющий замечать подделанные летописи','молодой командир гарнизона, отказавшийся приносить присягу'],foes:['верховный совет, готовый стереть часть страны ради порядка','полководец, который объявил спасение мира своим исключительным правом','тайный орден летописцев, меняющий прошлое вместе с хрониками']},
+ dark:{name:'Тёмное фэнтези',worlds:[{name:'чумной город Моровин',detail:'Колокола здесь звонят сами, когда в городе появляется человек, которого уже похоронили.',magic:'Пепел погребальных свечей открывает двери в чужие воспоминания.',cost:'После каждого обряда забывается лицо одного живого человека.'},{name:'лес Чёрных исповедей',detail:'Деревья хранят признания умерших; охотники продают чужие тайны на ночных ярмарках.',magic:'Живые могут заключать договоры с корнями, меняя истину на способность слышать мёртвых.',cost:'Всякая услышанная тайна оставляет на теле несмываемый след.'},{name:'замок на краю бездны',detail:'Каждое полнолуние замок отбрасывает тень, в которой живёт ещё одна версия его обитателей.',magic:'Тени подчиняются приказам своих хозяев, кроме одного часа перед рассветом.',cost:'Взамен власть над тенью забирает способность солгать.'}],heroes:['лекарь, который слышит диагнозы от давно умерших пациентов','бывший палач, получивший письмо от собственной жертвы','монахиня, отвечающая за записи о пропавших','охотник за чудовищами, начинающий превращаться в одно из них'],foes:['городской инквизитор, защищающий страшную тайну','собиратель человеческих долгов, никогда не показывающий лица','союз аристократов, покупающих дополнительные жизни']},
+ urban:{name:'Городское фэнтези',worlds:[{name:'Невель — город последнего трамвая',detail:'На полуночном маршруте появляются остановки, которых нет ни на одной карте.',magic:'Билеты из чёрной бумаги позволяют на час войти в чужую судьбу.',cost:'После поездки из реальности исчезает один день собственной жизни.'},{name:'дождливый мегаполис под стеклянным куполом',detail:'За куполом всегда ночь, хотя местные власти называют это климатическим феноменом.',magic:'Рекламные вывески иногда предсказывают события, если прочитать их задом наперёд.',cost:'Узнавший будущее теряет возможность изменить один из своих прошлых выборов.'},{name:'старый порт, которого нет на спутниковых картах',detail:'Его узкие улицы смещаются всякий раз, когда кто-нибудь произносит забытое имя.',magic:'Ключи с городского блошиного рынка открывают двери в невозможные помещения.',cost:'За вход в такую дверь придётся оставить за ней что-то настоящее.'}],heroes:['ночной курьер, доставляющий письма неизвестным адресатам','реставратор старых вывесок, замечающий слова, которых никто не видит','диспетчер городского транспорта, слышащий голоса закрытых станций','журналист, расследующий исчезновение целого квартала'],foes:['городской департамент невозможных происшествий','коллекционер, скупивший права на чужие воспоминания','корпорация, построившая бизнес на забытых обещаниях']},
+ romance:{name:'Романтическое фэнтези',worlds:[{name:'дворец серебряных сезонов',detail:'Здесь времена года меняются вслед за решениями двух враждующих династий.',magic:'Прикосновение истинной пары на миг показывает один возможный вариант будущего.',cost:'Каждое предсказание стирает одно общее счастливое воспоминание.'},{name:'королевство лунных садов',detail:'На ночь цветы записывают секреты посетителей и утром распускаются в форме услышанных слов.',magic:'Любое искреннее обещание оживает серебряной нитью, которую видят лишь обещавшие.',cost:'Разорванная нить оставляет на сердце след и передаёт боль другому.'},{name:'город на мостах между мирами',detail:'Мосты открываются только в день затмения; жители двух берегов не могут встречаться чаще раза в год.',magic:'Письма, запечатанные воском из звёздного воска, доходят сквозь границы времени.',cost:'Каждый ответ приносит не только слова, но и чужую утрату.'}],heroes:['переводчица при дворе соперничающей династии','хранитель запретных писем, нарушивший клятву молчания','наследница трона, которой предсказан опасный союз','телохранитель человека, которого приказано считать врагом'],foes:['регент, для которого чувства — государственное преступление','хранители договора, разлучающего две династии','совет прорицателей, запрещающий любые непредсказанные союзы']},
+ fairy:{name:'Сказочное фэнтези',worlds:[{name:'долина забытых колыбельных',detail:'Каждую зиму здесь исчезает одна сказка, а вместе с ней — существо, которому она посвящена.',magic:'Спетая вслух колыбельная может на ночь изменить форму любого предмета.',cost:'За каждую песню приходится отдать одно собственное сновидение.'},{name:'село за стеклянным лесом',detail:'Лес каждое утро отращивает новые дорожки и путает тех, кто врёт.',magic:'Золотые семена прорастают там, где кто-то бескорыстно помогает незнакомцу.',cost:'Вырастивший волшебное дерево должен исполнить одно его желание.'},{name:'озёрное царство бумажных птиц',detail:'Птицы из бумажных страниц уносят несказанные истории через озеро.',magic:'Ненаписанные сказки способны менять судьбы, если рассказчик верит в них до последней точки.',cost:'Удачная сказка забирает у автора одно слово навсегда.'}],heroes:['подмастерье переплётчика, чинящий испорченные сказки','дочь мельника, однажды проснувшаяся без собственной тени','пекарь, который печёт булочки с потерянными воспоминаниями','бродячая рассказчица, не умеющая придумывать счастливые концовки'],foes:['королева, запретившая незаписанные сказки','лесной судья, взыскивающий старые детские обещания','торговец чудесами, заменяющий подарки на проклятия']},
+ academy:{name:'Академическое фэнтези',worlds:[{name:'Академия над разломом времени',detail:'Каждый факультет живёт в собственном часе, а библиотека открывается лишь тем, кто опоздал.',magic:'Студенты изучают язык формул, меняющих вероятность событий.',cost:'Исправленная случайность создаёт равную по силе ошибку в другом месте.'},{name:'университет теневых наук',detail:'Здесь профессора получают должности по наследству от собственных будущих версий.',magic:'Тетради с особой разметкой записывают ещё не сделанные открытия.',cost:'Каждая прочитанная страница отменяет одно доступное человеку решение.'},{name:'обсерватория под корнями древнего дерева',detail:'Вместо звёзд тут наблюдают воспоминания умерших цивилизаций.',magic:'Сложенные определённым образом созвездия букв открывают проходы к утраченным эпохам.',cost:'Вернувшийся из прошлого навсегда теряет одно знание, которым гордился.'}],heroes:['стипендиат, которому по ошибке выдали диплом из будущего','ассистентка кафедры запрещённых дисциплин','студент, проваливший экзамен по магии, которой не существует','библиотекарь, умеющий читать вымаранные страницы'],foes:['ректор, который уже несколько столетий не сдаёт полномочия','тайное научное общество, редактирующее нежелательные открытия','магистр, защищающий опасную теорию любой ценой']}
+};
+const THEMES={memory:{name:'Память и идентичность',arc:'Чтобы узнать, кто он есть, протагонисту придётся отказаться от версии себя, которую создали другие.',question:'Если память о человеке исчезла у всех, продолжает ли он быть собой?'},freedom:{name:'Свобода и власть',arc:'Протагонист начинает с желания получить власть над обстоятельствами, а в конце учится не распоряжаться чужой свободой.',question:'Может ли порядок, основанный на принуждении, быть справедливым?'},trust:{name:'Доверие и предательство',arc:'От привычки всё контролировать герой движется к рискованному выбору — довериться тому, кого невозможно проверить.',question:'Что страшнее: довериться врагу или не поверить другу?'},loss:{name:'Цена утраты',arc:'Попытка вернуть утраченное заставляет героя понять разницу между памятью о прошлом и отказом жить дальше.',question:'Когда желание вернуть прошлое становится предательством настоящего?'},belonging:{name:'Поиск своего места',arc:'Пытаясь заслужить право быть частью мира, герой обнаруживает, что может изменить правила принадлежности.',question:'Должен ли человек соответствовать миру, чтобы обрести в нём дом?'},truth:{name:'Правда и иллюзия',arc:'Сначала герою кажется, что правда решит все проблемы. Затем становится ясно: правду ещё нужно суметь вынести.',question:'Имеет ли человек право разрушить чужую счастливую иллюзию?'}};
+const TONES={mysterious:{name:'Таинственная',beat:'Подсказки не объясняют тайну, а делают её ещё более личной.',ending:'Последняя сцена оставляет небольшой, но тревожащий знак, что известна не вся правда.'},dark:{name:'Мрачная',beat:'За каждую найденную улику кто-то расплачивается; победа становится всё менее похожей на спасение.',ending:'Победа не отменяет последствий: на память о ней остаётся непоправимая потеря.'},bright:{name:'Светлая',beat:'Неожиданный союз даёт надежду там, где одиночный подвиг обречён.',ending:'Даже после тяжелого выбора остаётся возможность восстановить то, что казалось утраченным.'},grand:{name:'Эпическая',beat:'Личный выбор героя отзывается переменами, затрагивающими целые страны и поколения.',ending:'О решении героя начинают складывать легенды — но живые помнят его иначе.'},ironic:{name:'Ироничная',beat:'Попытка следовать «великому пророчеству» приводит к абсурдным последствиям и неожиданно точным догадкам.',ending:'Историю объявляют великим подвигом, хотя её герои знают, насколько всё было нелепо.'}};
+const CORES=[
+{title:'Имя, которого не было',hook:'Однажды все записи о целом поколении людей исчезают — но сами люди ещё живы.',incident:'Письмо без подписи приводит героя к списку имён, которые завтра перестанут существовать даже в памяти родных.',goal:'Выяснить, кто стирает имена, и успеть спасти следующего человека из списка.',midpoint:'Список оказывается не приговором, а предупреждением: забытые имена удерживают нечто опасное по ту сторону мира.',twist:'Первое имя в первоначальном списке принадлежало самому герою; кто-то вернул его ценой чужой судьбы.',climax:'Приходится выбирать: уничтожить механизм забвения и выпустить древнюю угрозу или добровольно стать последним забытым.',ending:'Герой находит третий путь: передаёт память о забытых не одному хранителю, а тысячам людей, лишая механизм власти.',question:'Можно ли спасти человека, если ради этого все забудут о его существовании?',image:'размытые портреты, пустые строки в летописи'},
+{title:'Карта, которая лжёт',hook:'На старинной карте появляется дорога, которой вчера не было, а исчезнувшие места начинают возвращаться.',incident:'Герой находит карту с маршрутом, ведущим к месту, где ещё не случилась катастрофа.',goal:'Добраться до последней отмеченной точки раньше тех, кто переписывает географию ради власти.',midpoint:'Каждая новая дорога спасает одни поселения, но стирает другие из реального мира.',twist:'Карту составляет не злодей, а сам мир — так он пытается исправить ошибку давно умерших магов.',climax:'Перед героем две дороги: спасти родной дом или позволить миру перестать искажать собственные границы.',ending:'Карта остаётся чистой: впервые люди могут прокладывать пути сами, без магии, решающей за них.',question:'Имеет ли кто-то право исправлять мир ценой домов незнакомцев?',image:'карта с дорогами, которые двигаются по пергаменту'},
+{title:'Корона взаймы',hook:'Корона обещает каждому правителю мир, но требует в уплату одно будущее, которое так и не случится.',incident:'После внезапной смерти правителя корона выбирает нового владельца — человека, не имеющего отношения к престолу.',goal:'Понять, почему корона выбирает чужаков, прежде чем начнётся война за престол.',midpoint:'В архивах обнаруживаются десятки коронаций, которые никто не помнит, и судьбы людей, никогда не родившихся.',twist:'Корона вовсе не делает правителя могущественным: она питается отказом людей выбирать собственное будущее.',climax:'Чтобы предотвратить гражданскую войну, нужно уничтожить символ власти прямо перед армиями соперников.',ending:'Престол остаётся пустым. Стране предстоит гораздо более сложное дело — научиться управлять собой.',question:'Что, если самая опасная магия — обещание снять с нас ответственность?',image:'пустой трон и корона со светом внутри'},
+{title:'Дракон из завтрашнего дня',hook:'Последний дракон помнит ещё не случившиеся войны и отказывается сказать, кто их начнёт.',incident:'Дракон появляется у порога героя и называет точную дату гибели его родного места.',goal:'Найти событие, с которого начнётся цепь катастроф, и разорвать её.',midpoint:'Все попытки избежать предсказанных событий лишь делают их более вероятными.',twist:'Дракон помнит не будущее, а предыдущие попытки изменить его; катастрофа уже повторялась сотни раз.',climax:'Чтобы остановить повторение, герой должен сделать то, чего никто прежде не делал: отказаться от гарантированного спасения близкого человека.',ending:'Дракон впервые не знает, что будет завтра, и именно это означает, что мир получил шанс.',question:'Останемся ли мы собой, если заранее узнаем каждую свою ошибку?',image:'дракон над часами, показывающими разное время'},
+{title:'Город, где запрещено умирать',hook:'В городе никто не умирал сто лет — до тех пор, пока один ребёнок не начал стареть за всех.',incident:'Герой встречает ребёнка, который за одну ночь прожил несколько десятилетий, и замечает тот же знак на городских воротах.',goal:'Найти источник бессмертия и остановить превращение детей в стариков.',midpoint:'Бессмертие города поддерживается тайным договором: годы жителей переносятся на тех, кто ещё не родился.',twist:'Создатель договора давно умер; теперь его правила поддерживают все жители своими ежедневными маленькими желаниями.',climax:'Герою предстоит рассказать горожанам правду и дать им право добровольно отказаться от бессмертия.',ending:'Впервые за век в городе проводят настоящие похороны — и впервые за век рождаются дети без долга.',question:'Можно ли назвать чудом бессмертие, если за него платит тот, кто не может отказаться?',image:'городские часы без стрелок и седой ребёнок'},
+{title:'Рынок украденных снов',hook:'На тайном рынке можно купить любой сон; однажды туда выставляют сон, в котором разрушен весь мир.',incident:'Герой получает приглашение на аукцион сна, в котором узнаёт собственное детство.',goal:'Выследить продавца и понять, откуда у него воспоминания, которых у героя никогда не было.',midpoint:'Купленные сны начинают сбываться, а их бывшие владельцы теряют способность отличать настоящее от вымысла.',twist:'Торговцы не создают грёзы: они продают отвергнутые варианты будущего, вытесненные чужими решениями.',climax:'Герой может выкупить счастливое будущее для одного человека или разрушить рынок и вернуть всем право на непредсказуемость.',ending:'После уничтожения рынка людям снова снятся обычные, неидеальные сны — зато теперь принадлежащие им.',question:'Стоит ли идеальное будущее отказа от возможности выбирать?',image:'ночной базар с банками, полными светящихся снов'},
+{title:'Суд над чудовищем',hook:'Чудовище, веками пугавшее страну, добровольно приходит на суд и просит не оправдания, а смертного приговора.',incident:'Героя назначают защитником существа, существование которого официально запрещено.',goal:'Разобраться, зачем чудовище добивается казни, хотя могло бы уйти.',midpoint:'Выясняется, что чудовище веками удерживало на себе проклятие, которое иначе перешло бы на всех жителей.',twist:'Само чудовище никогда не выбирало эту роль: когда-то люди сделали его страшным, чтобы иметь общего врага.',climax:'Герой должен убедить суд отказаться от удобного врага и публично признать вину целого сообщества.',ending:'Вместо казни принимают новый договор: люди вместе отвечают за опасность, которую прежде перекладывали на одного.',question:'Почему обществу бывает удобнее верить в чудовище, чем признать собственную жестокость?',image:'зал суда, пустая клетка и огромная тень'},
+{title:'Последняя страница пророчества',hook:'В пророчестве о спасении мира обнаруживается пустая последняя страница, и каждый желающий может вписать туда своё условие.',incident:'Герой получает рукопись пророчества, из которой только что исчезло одно предложение.',goal:'Выяснить, кто меняет текст предсказания и почему после правок меняется реальность.',midpoint:'Пророчество исполняется не потому, что знает будущее: люди подчиняются ему и сами создают описанные бедствия.',twist:'Тот, кого называют Избранным, вовсе не должен победить зло — ему предназначено впервые отказаться играть отведённую роль.',climax:'Герой может вписать гарантированную победу или оставить страницу пустой, позволив людям действовать без приказа.',ending:'На последней странице остаётся только дата; всё остальное миру предстоит написать самому.',question:'Если пророчество всегда сбывается, насколько свободны те, кто ему верит?',image:'древняя книга с одной ослепительно белой страницей'},
+{title:'Тень другого человека',hook:'Однажды тени перестают повторять движения своих хозяев и начинают собираться по ночам в тайные собрания.',incident:'Тень героя возвращается домой раньше него и оставляет на стене предупреждение.',goal:'Узнать, чего требуют тени, пока власти не начали охоту на собственных двойников.',midpoint:'Каждая тень хранит выбор, который её человек хотел, но не решился сделать.',twist:'Тени не собираются захватить мир: они пытаются остановить катастрофу, созданную решениями людей.',climax:'Чтобы объединить людей и их двойников, герой должен впервые открыто признаться в собственном самом страшном желании.',ending:'Тени снова следуют за людьми, но теперь иногда подсказывают дорогу, на которую те сами боялись выйти.',question:'Какая часть человека имеет право на существование — прожитая жизнь или непрожитая?',image:'фигура перед стеной, где тень живёт отдельно'},
+{title:'Письма от исчезнувшего бога',hook:'После века молчания древний бог начинает отвечать на письма — и все ответы оказываются просьбами о помощи.',incident:'Герой получает письмо, подписанное существом, которому никто не молился несколько поколений.',goal:'Найти место, где заключён бог, прежде чем кто-то воспользуется его силой.',midpoint:'Выясняется, что молитвы не питают бога, а удерживают его в темнице чужих представлений.',twist:'Бог просит не освободить его, а позволить ему стать смертным и однажды исчезнуть.',climax:'Герой должен решить, можно ли лишить мир божества, если именно его чудеса веками спасали людей.',ending:'Мир теряет чудеса по расписанию, но получает первого бога, который может жить собственной жизнью.',question:'Можем ли мы любить кого-то, не требуя, чтобы он всегда нас спасал?',image:'письма, падающие с неба на закрытый храм'},
+{title:'Пепел первой весны',hook:'После каждой весны часть мира забывает, что такое тепло; в этом году зима собирается остаться навсегда.',incident:'Герой находит цветок, распустившийся на снегу, и в тот же день исчезает хранитель календаря.',goal:'Вернуть правильный ход времён года, прежде чем города окончательно замёрзнут.',midpoint:'Каждая отвоёванная весна требует от природы годы жизни, которые прежде принадлежали следующему поколению.',twist:'Вечная зима — способ мира защититься от магов, без конца ускорявших урожаи и рост богатства.',climax:'Герой должен предложить миру перемирие, отказавшись от мгновенного изобилия ради медленного восстановления.',ending:'Первая новая весна оказывается короткой и холодной, но приходит сама, без приказа магов.',question:'Готовы ли люди отказаться от чуда, если чудо истощает будущее?',image:'одинокий цветок под ледяным колоколом'},
+{title:'Коллекционер несбывшихся судеб',hook:'В музее выставляют предметы, принадлежавшие людям, которые никогда не существовали.',incident:'Герой узнаёт среди экспонатов вещь из своего дома, хотя её никто не крал.',goal:'Выяснить, кто собирает непрожитые судьбы и зачем музею понадобилась собственная жизнь героя.',midpoint:'Каждый экспонат — след чьего-то выбора, навсегда закрывшего другой вариант жизни.',twist:'Коллекционер пытается сохранить не предметы, а людей, которых реальность вычеркнула ради удобного единственного будущего.',climax:'Герой выбирает, открыть ли музей для всех и столкнуть множество возможных жизней или закрыть его, обрекши эти жизни на окончательное исчезновение.',ending:'В городе появляется маленький музей без билетов: люди приходят туда не за чужими жизнями, а чтобы помнить цену собственных решений.',question:'Нужно ли сожалеть о той жизни, которую мы могли бы прожить, но не выбрали?',image:'галерея с портретами несуществующих людей'}
+];
+const favKey='fantasy-atlas-favs-v1', currentKey='fantasy-atlas-current-v1';
+const randIndex=n=>Math.floor(Math.random()*n);
+const sample=a=>a[randIndex(a.length)];
+const without=(a,previous)=>sample(a.filter(x=>JSON.stringify(x)!==JSON.stringify(previous)).length?a.filter(x=>JSON.stringify(x)!==JSON.stringify(previous)):a);
+let state=null, favorites=[], generation=0, activeTab='idea', toastTimer;
+function safeParse(key, fallback){try{return JSON.parse(localStorage.getItem(key))??fallback}catch{return fallback}}
+function persistCurrent(){if(!state)return false;try{localStorage.setItem(currentKey,JSON.stringify(state));return true}catch(e){notify('Не удалось сохранить в браузере: скачай проект JSON');return false}}
+function persistFavorites(){try{localStorage.setItem(favKey,JSON.stringify(favorites))}catch{notify('Место для сохранения закончилось')}}
+function syncSaved(){const i=favorites.findIndex(f=>f.story?.id===state?.id);if(i>=0){favorites[i].story=JSON.parse(JSON.stringify(state));persistFavorites()}}
+const ALLIES=[
+ 'изгнанный архивариус, знающий, где в летописях вычеркнуты строки',
+ 'мастер по изготовлению запрещённых амулетов, у которого осталось последнее изделие',
+ 'проводник, способный чувствовать старые границы магии',
+ 'бывший ученик антагониста, скрывающий причину побега',
+ 'дворцовый переводчик, который слышит ложь в ритуальных формулах',
+ 'существо из соседнего мира, связанное древней клятвой',
+ 'хранительница разрушенного храма, помнящая цену прежней победы',
+ 'курьер тайного ордена, не верящий больше ни одному пророчеству'
+];
+const MOTIVES=[
+ 'получить право самостоятельно выбирать судьбу', 'вернуть человека, которого мир предпочёл забыть',
+ 'сохранить дом, которого нет на официальных картах', 'доказать, что запретная магия может служить людям',
+ 'прекратить наследуемое наказание целого рода', 'раскрыть правду о происхождении собственной силы'
+];
+const FLAWS=[
+ 'убеждённость, что просить помощи — значит терять свободу',
+ 'привычка выбирать полезную ложь вместо болезненной правды',
+ 'желание спасти всех, не спрашивая, хотят ли они спасения',
+ 'страх повторить ошибку наставника',
+ 'готовность пожертвовать близкими ради абстрактного долга',
+ 'неспособность отличить ответственность от чувства вины'
+];
+const SECRETS=[
+ 'однажды сознательно нарушил древний договор и не признался',
+ 'помнит событие, которого по официальной версии никогда не было',
+ 'имеет личную связь с источником опасной магии',
+ 'получил свой дар в обмен на чужое имя',
+ 'письмо с признанием давно спрятано среди семейных документов',
+ 'знает настоящую причину исчезновения прежнего хранителя'
+];
+const ANTAGONIST_MOTIVES=[
+ 'считает свободу непозволительной роскошью перед общей угрозой',
+ 'пытается сохранить равновесие, даже если для этого придётся уничтожить невиновных',
+ 'хочет вернуть эпоху, когда чудеса подчинялись единому закону',
+ 'убеждён, что людская память опаснее забвения',
+ 'видит в милосердии слабость, которая однажды погубила его дом',
+ 'хочет доказать, что пророчество нельзя обмануть'
+];
+const RELATIONSHIPS=[
+ 'Союзник предлагает помощь при условии, что герой однажды расскажет всю правду.',
+ 'Тот, кому герой доверяет меньше всего, оказывается единственным, кто не требует платы.',
+ 'Их договор держится на лжи; разрыв этой лжи может уничтожить сам союз.',
+ 'Союзник защищает то, что герой сперва собирался пожертвовать ради победы.',
+ 'Они по-разному понимают слово «спасти» — и конфликт становится личным.',
+ 'Антагонист знает прошлое союзника и использует это, чтобы расколоть команду.'
+];
+const CULTURES=[
+ 'Важные соглашения здесь заключают вслух при свидетелях, но истинные имена не называют.',
+ 'В праздники жители меняются масками: общественный статус на одну ночь теряет значение.',
+ 'Историю передают не книгами, а песнями, в которых нельзя менять ни одного слова.',
+ 'Семейные реликвии считаются общественной собственностью, пока хозяин не докажет свою память.',
+ 'На границе страны у каждого путника забирают одну личную историю в качестве пошлины.',
+ 'Местные жители никогда не строят дома на месте, где однажды прозвучало пророчество.'
+];
+const TABOOS=[
+ 'произносить настоящие имена умерших', 'рисовать карту после заката',
+ 'передавать магические знания без свидетельства наставника',
+ 'возвращать из изгнания тех, кто видел изнанку мира',
+ 'спрашивать у богов о будущем другого человека',
+ 'хранить предметы, принадлежавшие исчезнувшим людям'
+];
+const FACTIONS=[
+ 'Совет архивистов скрывает старый долг королевства.',
+ 'Союз приграничных городов собирается отменить единый закон о магии.',
+ 'Гильдия перевозчиков тайно контролирует все пути между землями.',
+ 'Сторонники древнего престола ищут наследника, который не захочет править.',
+ 'Закрытый орден требует запретить любые предсказания.',
+ 'Община хранителей предпочитает разрушить чудо, а не отдать его государству.'
+];
+const POWER_SOURCES=[
+ 'память людей о прошлых событиях', 'обещания, данные при свидетелях',
+ 'тени и имена исчезнувших мест', 'связь живых существ с временами года',
+ 'невысказанные желания', 'реликвии погибших цивилизаций'
+];
+const MAGIC_RULES=[
+ 'Заклинание действует только там, где его последствия можно назвать вслух.',
+ 'Нельзя создать ничего нового: магия лишь переносит свойство от одного существа к другому.',
+ 'Один и тот же ритуал невозможно применить к одному человеку дважды.',
+ 'Для каждого чуда требуется предмет, который нельзя подделать.',
+ 'Магия срабатывает лишь тогда, когда участники согласны с её ценой.',
+ 'Чем точнее просьба, тем уже и опаснее оказывается результат.'
+];
+const LIMITS=[
+ 'Не действует против добровольно данного обещания.',
+ 'Теряет силу при свете первого рассвета после применения.',
+ 'Нельзя использовать на собственной крови или семье.',
+ 'Не способна вернуть утраченную память в прежнем виде.',
+ 'Оставляет заметный след, по которому можно найти мага.',
+ 'Работает лишь пока два независимых свидетеля помнят результат.'
+];
+const PRICES=[
+ 'За каждое чудо стирается одно воспоминание о близком человеке.',
+ 'Маг теряет способность произносить слово, с которого начался ритуал.',
+ 'Мир взыскивает долг с тех, кто находится поблизости.',
+ 'Любое вмешательство ускоряет старение связанного с магом предмета или места.',
+ 'Сила забирает не время жизни, а одну возможную дорогу в будущем.',
+ 'Нарушенное равновесие возникает заново в неожиданном месте.'
+];
+const REVEALS=[
+ 'Человек, которого считали беззащитной жертвой, сам когда-то подписал первый запрет.',
+ 'Последняя улика намеренно оставлена союзником, чтобы спасти героя от ещё худшей правды.',
+ 'Источник магии не истощается: его обкрадывает институт, созданный ради защиты от катастроф.',
+ 'Пророчество не говорит о будущем, а записывает решения, которые люди уже приняли.',
+ 'Враг пытался остановить катастрофу тем же способом, который теперь выбирает герой.',
+ 'Обыкновенный предмет героя оказывается доказательством договора, заключённого до его рождения.',
+ 'Великое «чудовище» — должность, которую на себя берёт очередной хранитель.',
+ 'Для спасения мира не нужен новый владыка: требуется отменить само право распоряжаться магией.'
+];
+const CLUES=[
+ 'За два эпизода до раскрытия мелькает несовпадение дат в архивной записи.',
+ 'Неожиданный отказ союзника совершить простое заклинание оказывается ключом.',
+ 'На карте повторяется один и тот же символ в местах, где магия будто бы не работает.',
+ 'Мелкая бытовая традиция жителей оказывается остатком древней защитной практики.',
+ 'Антагонист каждый раз спасает одного свидетеля, хотя это мешает его плану.',
+ 'Одно слово в заклинании по-разному переводят два героя.'
+];
+const ENDINGS={
+ hopeful:{name:'Свет с последствиями',line:'Равновесие меняется не без потерь, но люди получают право сами определять дальнейшую судьбу.'},
+ bittersweet:{name:'Горько-сладкий',line:'Цель достигнута ценой личной утраты: герой сохраняет будущее, но уже не может вернуть прежнюю жизнь.'},
+ open:{name:'Открытый',line:'Главная угроза снята, однако последняя находка допускает два противоположных объяснения; выбор остаётся за читателем.'},
+ tragic:{name:'Трагический',line:'Цена победы оказывается неприемлемой: спасая других, герой теряет то, ради чего начинал путь.'},
+ unexpected:{name:'Неожиданный',line:'Финальный смысл меняется: победа заключается не в выполнении пророчества, а в отказе играть по его правилам.'}
+};
+const POVS={
+ third:{name:'Третье лицо · ограниченная',advice:'В каждой сцене читатель знает только то, что воспринимает герой. Секреты союзника и противника раскрываются через следы, поведение и последствия.'},
+ first:{name:'Первое лицо',advice:'История звучит голосом героя: важны личная интонация, пристрастность и разрыв между словами рассказчика и реальными событиями.'},
+ omniscient:{name:'Всеведущий рассказчик',advice:'Можно переходить между сознаниями и показывать иронию ситуации. Сохраняй авторский голос и не превращай каждую сцену в каталог чужих мыслей.'},
+ dual:{name:'Два POV',advice:'Чередуй главы героя и союзника. Каждый должен обладать уникальной информацией и собственной целью; повтор одной сцены оправдан только новым смыслом.'},
+ multi:{name:'Несколько POV',advice:'Отдельные сюжетные линии героя, союзника и противника постепенно сходятся. Давай каждой точке зрения свой конфликт и голос.'},
+ unreliable:{name:'Ненадёжный рассказчик',advice:'Герой искренне заблуждается или скрывает главное. Читатель должен видеть проверяемые несоответствия между рассказом и событиями; избегай обмана без подсказок.'},
+ second:{name:'Второе лицо',advice:'«Ты» делает читателя непосредственным участником. Особенно хорошо работает для короткого произведения, магического испытания или текста-обращения.'},
+ epistolary:{name:'Письма и хроники',advice:'Собирай историю из писем, отчётов, дневников, судебных записей. Пропуски, разные даты и разногласия документов становятся источником интриги.'}
+};
+// Каждый набор — реально другая система драматургических этапов, а не переименованные три акта.
+// Код этапа связывается с конкретным конфликтом, миром, героями и новым поворотом.
+const STRUCTURES={
+ three:{name:'Трёхактная структура',description:'Классическая модель: установка и точка невозврата → усложнение и кризис → решение и последствия.',beats:[
+  ['Экспозиция','setup'],['Пусковое событие','incite'],['Первый поворот / конец I акта','threshold'],
+  ['Эскалация / акт II','tests'],['Переворот в середине','midpoint'],['Кризис / конец II акта','ordeal'],
+  ['Кульминация / акт III','climax'],['Развязка','ending']]},
+ hero:{name:'Путь героя',description:'Двенадцать этапов путешествия от привычного мира через испытание к возвращению с изменением.',beats:[
+  ['Обычный мир','setup'],['Зов к приключению','incite'],['Отказ от зова','hesitate'],
+  ['Встреча с наставником','mentor'],['Пересечение порога','threshold'],['Испытания, союзники, враги','tests'],
+  ['Приближение к пещере','approach'],['Главное испытание','ordeal'],['Награда','reward'],
+  ['Дорога назад','return'],['Воскрешение / последняя проверка','climax'],['Возвращение с эликсиром','ending']]},
+ savecat:{name:'Save the Cat!',description:'Пятнадцать драматургических битов для управления ритмом, личной аркой и большим сюжетным переломом.',beats:[
+  ['Начальный образ','setup'],['Формулировка темы','theme'],['Подготовка','context'],['Катализатор','incite'],
+  ['Сомнения','hesitate'],['Переход во второй акт','threshold'],['Линия B','ally'],
+  ['Обещание концепции','tests'],['Середина','midpoint'],['Давление нарастает','pressure'],
+  ['Всё потеряно','loss'],['Тёмная ночь души','darknight'],['Переход в третий акт','choice'],
+  ['Финал','climax'],['Финальный образ','ending']]},
+ five:{name:'Пятиактная структура',description:'Постепенное нарастание действия, вершина столкновения и цепочка последствий; удобна для многослойного конфликта.',beats:[
+  ['I. Экспозиция','setup'],['I. Завязка','incite'],['II. Развитие','tests'],['II. Усиление давления','pressure'],
+  ['III. Центральный перелом','midpoint'],['III. Ключевое узнавание','reveal'],
+  ['IV. Падение','loss'],['IV. Последний выбор','choice'],['V. Кульминация','climax'],['V. Развязка','ending']]},
+ seven:{name:'Семь сюжетных точек',description:'От исходного состояния через поворот, первое давление и середину к повторному давлению и финальному решению.',beats:[
+  ['Крючок','setup'],['Первый поворот','incite'],['Первый зажим','pressure'],['Серединный поворот','midpoint'],
+  ['Второй зажим','ordeal'],['Второй поворот','choice'],['Разрешение','ending']]},
+ circle:{name:'Круг истории',description:'Восемь шагов изменения героя: желание, вход в незнакомое, адаптация, находка, цена, возвращение и преобразование.',beats:[
+  ['1. Зона комфорта','setup'],['2. Потребность','theme'],['3. Неизвестное','threshold'],['4. Поиск','tests'],
+  ['5. Находка','midpoint'],['6. Цена','loss'],['7. Возвращение','return'],['8. Изменение','ending']]},
+ fichte:{name:'Кривая Фихте',description:'Начни с кризиса и усиливай давление через следующие конфликты до кульминации. Предысторию раскрывай по мере необходимости.',beats:[
+  ['Немедленный кризис','incite'],['Новая проблема','tests'],['Усиление ставок','pressure'],['Ложная передышка','reward'],
+  ['Катастрофическое узнавание','reveal'],['Предел возможностей','loss'],['Кульминация','climax'],['Короткая развязка','ending']]},
+ kishotenketsu:{name:'Кисётэнкэцу',description:'Четырёхчастная композиция: введение, развитие, неожиданный поворот-сопоставление и осмысление. Внешний злодей здесь не обязателен.',beats:[
+  ['Ки · введение','setup'],['Сё · развитие','context'],['Тэн · неожиданное сопоставление','reveal'],['Кэцу · новый смысл','ending']]},
+ nonlinear:{name:'Нелинейная мозаика',description:'Порядок предъявления отличается от хронологии: последствия видны раньше причин. В каждой части раскрывается новая сторона загадки.',beats:[
+  ['После катастрофы','loss'],['Незнакомое прошлое','setup'],['Улика из будущего','reveal'],['Причина конфликта','incite'],
+  ['Событие другой точки зрения','ally'],['Скрытый поворот','midpoint'],['Истинный выбор','climax'],['Переосмысленный финал','ending']]}
+};
+function settings(){return {genre:$('genre').value,tone:$('tone').value,length:$('length').value,theme:$('theme').value,pov:$('pov').value,structure:$('structure').value,endType:$('endType').value,heroName:$('heroName').value.trim()}}
+function makeCharacters(s, hero, foe){const g=GENRES[s.genre];return {
+  hero:hero || (s.heroName?`${s.heroName} — ${sample(g.heroes)}`:sample(g.heroes)),
+  goal:sample(MOTIVES), flaw:sample(FLAWS), secret:sample(SECRETS),
+  antagonist:foe || sample(g.foes), antagonistReason:sample(ANTAGONIST_MOTIVES),
+  ally:sample(ALLIES), relationship:sample(RELATIONSHIPS)
+}}
+function makeSociety(){return {culture:sample(CULTURES), taboo:sample(TABOOS), faction:sample(FACTIONS)}}
+function makeMagic(){return {source:sample(POWER_SOURCES),rule:sample(MAGIC_RULES),limit:sample(LIMITS),price:sample(PRICES)}}
+function makeTwist(previous){const i=randIndex(REVEALS.length);const choice=(previous && REVEALS[i]===previous.reveal)?REVEALS[(i+1)%REVEALS.length]:REVEALS[i];return {reveal:choice,clue:sample(CLUES)}}
+function freshStory(){const s=settings(),prev=state,g=GENRES[s.genre];const world=JSON.parse(JSON.stringify(($('keepWorld').checked&&prev?.settings.genre===s.genre)?prev.world:sample(g.worlds)));
+ const coreIndex=$('keepCore').checked && prev ? prev.coreIndex : without(CORES.map((_,i)=>i),prev?.coreIndex);
+ const characters=makeCharacters(s),society=makeSociety(),magic=makeMagic(),twist=makeTwist();
+ return {id:`atlas-${Date.now()}-${randIndex(1e7)}`,settings:s,world,coreIndex,characters,society,magic,twist,hero:characters.hero,foe:characters.antagonist,notes:'',number:++generation,created:Date.now(),version:4};}
+function normalizedStory(old){if(!old || !old.settings || !GENRES[old.settings.genre] || !CORES[old.coreIndex])return null;
+ const s={...old.settings,pov:POVS[old.settings.pov]?old.settings.pov:'third',structure:STRUCTURES[old.settings.structure]?old.settings.structure:'three',endType:ENDINGS[old.settings.endType]?old.settings.endType:'hopeful'};
+ const world=JSON.parse(JSON.stringify(old.world||sample(GENRES[s.genre].worlds))),characters=old.characters||makeCharacters(s,old.hero,old.foe);
+ return {...old,settings:s,world,characters,society:old.society||makeSociety(),magic:old.magic||makeMagic(),twist:old.twist||makeTwist(),notes:old.notes||'',version:4};
+}
+function endingFor(st){const c=CORES[st.coreIndex];return `${c.ending} ${ENDINGS[st.settings.endType].line} ${TONES[st.settings.tone].ending}`;}
+function plotMoment(st,code){const c=CORES[st.coreIndex],t=TONES[st.settings.tone],th=THEMES[st.settings.theme],ch=st.characters,w=st.world,m=st.magic,sc=st.society;
+ const moments={
+  setup:`В ${w.name} жизнь подчинена негласным правилам. ${w.detail} ${sc.culture} Герой пытается ${ch.goal}.`,
+  context:`Герой сталкивается с обычаем: запрещено ${sc.taboo}. ${sc.faction} ${c.hook}`,
+  theme:`Личный изъян героя — ${ch.flaw}. Основной вопрос истории: ${th.question}`,
+  incite:`${c.incident} Появляется причина действовать сейчас, а не откладывать решение.`,
+  hesitate:`Герой хочет ${ch.goal}, но ${ch.flaw}. Вмешательство может раскрыть тайну: ${ch.secret}.`,
+  mentor:`Помощь предлагает ${ch.ally}. Вместо готового решения — предупреждение: ${m.limit}`,
+  threshold:`${c.goal} Первый необратимый шаг: нарушить запрет — ${sc.taboo}.`,
+  ally:`${ch.relationship} Возникает параллельная линия о доверии и ответственности.`,
+  tests:`${c.goal} На пути стоит ${ch.antagonist}; ${ch.antagonistReason}. ${t.beat}`,
+  approach:`${sc.faction} Союзники вынуждены решать, кто заплатит за применение силы: ${m.price}`,
+  midpoint:`${c.midpoint} Герой меняет первоначальный план и переосмысливает смысл победы.`,
+  pressure:`${ch.antagonist} усиливает давление. Правило магии осложняет попытку ответить: ${m.rule}`,
+  reveal:`${c.twist} Дополнительное разоблачение: ${st.twist.reveal}`,
+  ordeal:`${c.twist} Ключевая правда разрушает прежний план; ${st.twist.reveal}`,
+  reward:`Герой получает доказательство, что конфликт ещё можно разрешить, но магия требует плату: ${m.price}`,
+  loss:`Предпринятое решение даёт обратный эффект. Союзник отдаляется; старая слабость — ${ch.flaw} — делает поражение личным.`,
+  darknight:`После потери герой понимает, что прежний способ действия был частью проблемы. ${th.arc}`,
+  choice:`Новый путь требует отказаться от привычной защиты. ${th.arc} ${c.climax}`,
+  return:`Прежний мир требует вернуть всё на свои места, но герой видит цену старого порядка. ${sc.faction}`,
+  climax:`${c.climax} Выбор должен проверить одновременно внешнюю цель и внутреннее изменение героя.`,
+  ending:endingFor(st)
+ };return moments[code]||c.goal;
+}
+function beats(st){return STRUCTURES[st.settings.structure].beats.map(([title,code],i)=>({title,code,text:plotMoment(st,code),index:i}));}
+function povForChapter(st,index){const v=st.settings.pov;const voices={third:'Герой · 3-е лицо',first:'Герой · «я»',omniscient:'Всеведущий рассказчик',unreliable:'Герой · ненадёжное «я»',second:'Обращение «ты»'};
+ if(voices[v])return voices[v];
+ if(v==='dual')return index%2===0?'Герой · ограниченная':'Союзник · ограниченная';
+ if(v==='multi')return ['Герой','Союзник','Антагонист'][index%3]+' · ограниченная';
+ return ['Письмо главного героя','Дневник союзника','Отчёт противника'][index%3];
+}
+function povSample(st){const key=st.settings.pov,w=st.world.name,c=CORES[st.coreIndex];const samples={
+ third:`В ${w} герой нашёл письмо. Откуда отправитель узнал правду, было непонятно.`,
+ first:`Я нашёл письмо в ${w}. И только потом заметил: почерк был моим.`,
+ omniscient:`Герой нашёл письмо в ${w}; в тот же час человек, написавший его, пожалел о своём решении.`,
+ dual:`Герой видел в письме угрозу. Союзник, знавший отправителя, — единственную надежду.`,
+ multi:`Пока герой читал письмо, союзник прятал вторую половину, а противник поджидал ответ.`,
+ unreliable:`Я ни разу не видел этого письма. По крайней мере, именно так я рассказал всем остальным.`,
+ second:`Ты находишь письмо в ${w}. Чужое имя на конверте зачёркнуто твоей рукой.`,
+ epistolary:`«День шестой. ${c.hook}» — из неизвестного письма, вложенного в городской реестр.`
+ };return samples[key];}
+const CHAPTER_MOVES=[
+ {kind:'Открытие',pressure:'Незаметная деталь указывает, что сведения героя неполны.',hook:'Кто заранее знал о находке?'},
+ {kind:'Проверка',pressure:'Попытка проверить версию требует услугу, за которую придётся расплатиться.',hook:'Кому выгодно, чтобы проверка не состоялась?'},
+ {kind:'Столкновение',pressure:'Вмешательство противника меняет место и время следующего шага.',hook:'Что ещё пришлось скрыть союзнику?'},
+ {kind:'Последствие',pressure:'Даже небольшой успех причиняет ущерб тому, кого герой хотел защитить.',hook:'Можно ли исправить последствия без нового чуда?'},
+ {kind:'Новый союз',pressure:'Появляется помощь, но условия сотрудничества противоречат ценностям героя.',hook:'Что случится, когда союзник узнает правду?'},
+ {kind:'Цена решения',pressure:'Запрет магии превращает обычный план в нравственную дилемму.',hook:'Кто заплатит за следующий ритуал?'},
+ {kind:'Ложный след',pressure:'Убедительная версия оказывается удобной лишь на первый взгляд.',hook:'Какая деталь не укладывается в объяснение?'},
+ {kind:'Выбор',pressure:'Уход от ответа тоже становится решением с реальными последствиями.',hook:'Какую потерю герой готов принять?'},
+];
+function chapterPlan(st){const b=beats(st),count={short:5,novella:12,novel:24}[st.settings.length]||12,short=st.settings.length==='short',result=[];
+ for(let i=0;i<count;i++){
+  const begin=Math.floor(i*b.length/count),end=Math.max(begin+1,Math.floor((i+1)*b.length/count)),group=b.slice(begin,Math.min(b.length,end));
+  const stage=group.map(x=>x.title).join(' + '),event=group.map(x=>x.text).join(' '),move=CHAPTER_MOVES[(i+st.coreIndex)%CHAPTER_MOVES.length];
+  const part=i/count<1/3?'Начало':i/count<2/3?'Развитие':'Завершение';
+  result.push({n:i+1,heading:`${move.kind}: ${group[0].title.toLowerCase()}`,stage,part,voice:povForChapter(st,i),event,pressure:move.pressure,
+   hook:move.hook,scene:short?'Сцена':'Глава'});
+ }return result;
+}
+function elt(tag,cls,content){const e=document.createElement(tag);if(cls)e.className=cls;if(content!==undefined)e.textContent=content;return e}
+function appendFacts(container,rows){$(container).replaceChildren(...rows.map(([name,value])=>{const card=elt('div','fact');card.append(elt('div','label',name),elt('p','',value));return card}))}
+function renderBeats(container,rows){$(container).replaceChildren(...rows.map((r,i)=>{const row=elt('div','beat');const body=elt('div');body.append(elt('h4','',r.title),elt('p','',r.text));row.append(elt('div','beat-n',String(i+1)),body);return row}))}
+function characterCard(label,name,parts){const card=elt('article','character-card'),dl=elt('dl');card.append(elt('div','char-role',label),elt('h4','',name));parts.forEach(([key,value])=>{dl.append(elt('dt','',key),elt('dd','',value))});card.append(dl);return card;}
+// Атлас историй 4.0 — редактируемая модель рукописи (без сервера и сторонних сервисов)
+let chapterSerial=0;
+const makeID=(prefix)=>`${prefix}-${Date.now().toString(36)}-${(++chapterSerial).toString(36)}-${Math.floor(Math.random()*1e6).toString(36)}`;
+const wordCount=str=>((String(str||'').trim().match(/\S+/gu))||[]).length;
+function ensureWorkshop(st){
+ if(!st.workshop || typeof st.workshop!=='object')st.workshop={};
+ const wb=st.workshop,co=CORES[st.coreIndex],th=THEMES[st.settings.theme];
+ if(typeof wb.title!=='string')wb.title=co.title;
+ if(typeof wb.logline!=='string')wb.logline=`${co.hook} Место действия — ${st.world.name}.`;
+ if(typeof wb.synopsis!=='string')wb.synopsis=`${co.incident} ${co.goal} ${co.midpoint} ${co.climax}`;
+ if(typeof wb.stakes!=='string')wb.stakes='Что герой потеряет, если не сможет изменить положение дел?';
+ if(typeof wb.theme!=='string')wb.theme=th.question;
+ if(typeof wb.ending!=='string')wb.ending=endingFor(st);
+ if(!Array.isArray(wb.chapters))wb.chapters=chapterPlan(st).map(ch=>({...ch,id:makeID('chapter'),draft:'',notes:'',status:'idea'}));
+ wb.chapters=wb.chapters.filter(ch=>ch&&typeof ch==='object').map((ch,i)=>({id:ch.id||makeID('chapter'),heading:ch.heading||`Глава ${i+1}`,stage:ch.stage||'',part:ch.part||'',voice:ch.voice||'',event:ch.event||'',pressure:ch.pressure||'',hook:ch.hook||'',draft:ch.draft||'',notes:ch.notes||'',status:ch.status||'idea',scene:ch.scene||'Глава'}));
+ if(!Array.isArray(wb.lines))wb.lines=[
+  {id:makeID('line'),name:'A · Основной конфликт',pov:st.characters.hero,goal:st.characters.goal,obstacle:st.characters.antagonist,turn:co.midpoint,outcome:co.climax},
+  {id:makeID('line'),name:'B · Отношения и доверие',pov:st.characters.ally,goal:st.characters.relationship,obstacle:st.characters.secret,turn:'Союзник узнаёт тайну героя.',outcome:'Выбор между близостью и целью.'},
+  {id:makeID('line'),name:'C · История мира',pov:'Мир и второстепенные герои',goal:st.society.faction,obstacle:st.society.taboo,turn:'Запрет оказывается связан с устройством магии.',outcome:'Новый порядок или возвращение старого.'}
+ ];
+ if(!Array.isArray(wb.conflicts))wb.conflicts=[
+  {id:makeID('conflict'),level:'Внешний',name:'Герой против системы',desire:st.characters.goal,obstacle:st.characters.antagonist,stakes:'Потеря права влиять на судьбу мира'},
+  {id:makeID('conflict'),level:'Внутренний',name:'Герой против себя',desire:'Остаться верным себе',obstacle:st.characters.flaw,stakes:'Потеря собственной идентичности'},
+  {id:makeID('conflict'),level:'Ценностный',name:'Свобода и порядок',desire:'Найти путь без принуждения',obstacle:st.society.taboo,stakes:'Какую цену оправдывает общее благо?'}
+ ];
+ if(!Array.isArray(wb.scenes))wb.scenes=wb.chapters.map((ch,i)=>({id:makeID('scene'),chapterId:ch.id,title:`Сцена ${i+1} · ${ch.heading}`,pov:ch.voice,goal:ch.event,obstacle:ch.pressure,turn:'Как меняется расстановка сил?',outcome:ch.hook,notes:'',status:'idea'}));
+ if(!Array.isArray(wb.entries))wb.entries=[
+  {id:makeID('entry'),type:'Локация',name:st.world.name,detail:st.world.detail,links:'Где происходит основной конфликт'},
+  {id:makeID('entry'),type:'Закон магии',name:'Цена силы',detail:`${st.magic.limit} ${st.magic.price}`,links:'Проверяй правила при написании каждой сцены'}
+ ];
+ if(!wb.characterNotes||typeof wb.characterNotes!=='object')wb.characterNotes={hero:'',antagonist:'',ally:''};
+ if(typeof wb.updatedAt!=='number')wb.updatedAt=Date.now();
+ return wb;
+}
+function getByPath(obj,path){return path.split('.').reduce((v,key)=>v?.[key],obj)}
+function putByPath(obj,path,value){const steps=path.split('.');let t=obj;for(const key of steps.slice(0,-1)){if(t==null || !(key in t))return;t=t[key]}if(t!=null)t[steps.at(-1)]=value}
+function saveEdits(){if(!state)return;state.workshop.updatedAt=Date.now();const success=persistCurrent();if(success)syncSaved();const hint=$('saveStatus');if(hint)hint.textContent=success?'✓ Сохранено на устройстве':'⚠ Сохранение не удалось: скачай JSON'}
+let saveTimer;
+function queueSave(){if(state?.workshop)state.workshop.userEdited=true;const hint=$('saveStatus');if(hint)hint.textContent='Сохранение…';clearTimeout(saveTimer);saveTimer=setTimeout(saveEdits,300)}
+function flushSave(){clearTimeout(saveTimer);saveEdits()}
+function confirmNewStory(){const wb=state?.workshop;if(!wb)return true;const hasDraft=wb.chapters?.some(c=>wordCount(c.draft)>0),hasNotes=Boolean(state?.notes?.trim());if(!hasDraft&&!hasNotes&&!wb.userEdited)return true;return window.confirm('Создать новый сюжет? Текущий проект сменится. Сначала добавь его в избранное или скачай JSON-копию, если хочешь сохранить.')}
+function makeField(label,path,value,{area=false,rows=3,select=null,placeholder='',hint=''}={}){
+ const wrap=elt('label','edit-field');const text=elt('span','edit-label',label);wrap.append(text);
+ let input;
+ if(select){input=elt('select','studio-input');select.forEach(([key,val])=>{const o=elt('option','',val);o.value=key;input.append(o)});input.value=value??''}
+ else if(area){input=elt('textarea','studio-input studio-textarea');input.rows=rows;input.value=String(value??'')}
+ else{input=elt('input','studio-input');input.type='text';input.value=String(value??'')}
+ input.dataset.edit=path;if(placeholder)input.placeholder=placeholder;
+ wrap.append(input);if(hint)wrap.append(elt('small','edit-hint',hint));return wrap;
+}
+function button(txt,action,index,cls='mini-btn'){const b=elt('button',cls,txt);b.type='button';b.dataset.action=action;if(index!==undefined)b.dataset.index=String(index);return b}
+function bar(title,subtitle){const top=elt('div','studio-sectionhead');top.append(elt('h4','',title));if(subtitle)top.append(elt('span','studio-subtitle',subtitle));return top}
+function editorCard(children,className='editor-card'){const e=elt('div',className);children.forEach(child=>e.append(child));return e}
+function editorSummary(){const wb=state.workshop,draftWords=wb.chapters.reduce((s,c)=>s+wordCount(c.draft),0),complete=wb.chapters.filter(c=>c.status==='done').length;
+ return {words:draftWords,complete,total:wb.chapters.length,scenes:wb.scenes.length,lines:wb.lines.length};}
+function renderBook(){const wb=ensureWorkshop(state),host=$('bookEditor');host.replaceChildren();
+ const met=editorSummary(),metrics=elt('div','metrics');[['Слов в рукописи',met.words.toLocaleString('ru-RU')],['Готовых глав',`${met.complete} / ${met.total}`],['Сцен',met.scenes],['Линий',met.lines]].forEach(([a,b])=>{const card=elt('div','metric');card.append(elt('span','',a),elt('strong','',String(b)));metrics.append(card)});host.append(metrics);
+ host.append(editorCard([
+  bar('Паспорт романа','Все поля можно переписать — генератор ничего не заблокирует.'),
+  makeField('Рабочее название','workshop.title',wb.title),
+  makeField('Логлайн','workshop.logline',wb.logline,{area:true,rows:3}),
+  makeField('Синопсис','workshop.synopsis',wb.synopsis,{area:true,rows:6}),
+  makeField('Ставки героя','workshop.stakes',wb.stakes,{area:true,rows:2}),
+  makeField('Тематический вопрос','workshop.theme',wb.theme,{area:true,rows:2}),
+  makeField('Авторский финал','workshop.ending',wb.ending,{area:true,rows:4})
+ ]) );
+ const actions=elt('div','row-wrap');actions.append(button('↓ Вся книга · Markdown','book-md'),button('↓ Проект · JSON','project-json'),button('↑ Открыть проект','project-import'));host.append(actions);
+ const foot=elt('div','insight-card');foot.append(elt('strong','','Как устроено сохранение'),elt('p','','Все правки автоматически хранятся в браузере на этом устройстве. «Проект · JSON» — полноценная резервная копия для переноса и продолжения работы на другом устройстве. Для сохранения рукописи отдельно скачивай Markdown.'));host.append(foot);
+}
+function renderLines(){const wb=state.workshop,host=$('linesEditor');host.replaceChildren();
+ host.append(elt('p','tab-lead','Линия A двигает внешний сюжет; линия B развивает отношения и внутренние перемены; линия C раскрывает устройство мира. Изменяй и добавляй свои линии, связывай их через общие последствия.'));
+ host.append(bar('Сюжетные линии',`${wb.lines.length} шт.`));
+ wb.lines.forEach((ln,i)=>{const card=editorCard([], 'editor-card');const head=elt('div','edit-cardhead');head.append(elt('strong','',`Линия ${i+1}`),button('Удалить','line-delete',i,'ghost-danger'));card.append(head);
+ [['Название','name'],['Герой / POV','pov'],['Цель линии','goal'],['Противодействие','obstacle'],['Ключевой поворот','turn'],['Развязка','outcome']].forEach(([title,key])=>card.append(makeField(title,`workshop.lines.${i}.${key}`,ln[key],{area:['goal','obstacle','turn','outcome'].includes(key),rows:2})));
+ host.append(card)});
+ host.append(button('＋ Добавить сюжетную линию','line-add'));
+ host.append(bar('Уровни конфликта',`${wb.conflicts.length} шт.`));
+ wb.conflicts.forEach((co,i)=>{const card=editorCard([],'editor-card');const head=elt('div','edit-cardhead');head.append(elt('strong','',`Конфликт ${i+1}`),button('Удалить','conflict-delete',i,'ghost-danger'));card.append(head);
+ [['Уровень','level'],['Название','name'],['Чего хотят','desire'],['Что мешает','obstacle'],['Чем рискуют','stakes']].forEach(([label,key])=>card.append(makeField(label,`workshop.conflicts.${i}.${key}`,co[key],{area:['desire','obstacle','stakes'].includes(key),rows:2})));
+ host.append(card)});
+ host.append(button('＋ Добавить конфликт','conflict-add'));
+}
+const STATUS_OPTIONS=[['idea','Идея'],['draft','Черновик'],['revise','Редактура'],['done','Готово']];
+function renderEditableChapters(){const wb=ensureWorkshop(state),root=$('chapterCards');
+ $('chapterHeading').textContent=`${state.settings.length==='short'?'Сцены рассказа':'Главы книги'} · ${wb.chapters.length}`;
+ $('chapterInfo').textContent=`Автоплан на основе «${STRUCTURES[state.settings.structure].name}». Названия, синопсисы, POV и текст глав редактируются. При смене структуры готовые правки не стираются; для нового шаблонного плана есть отдельная кнопка.`;
+ root.replaceChildren(...wb.chapters.map((chapter,i)=>{
+  const details=elt('details','chapter edit-chapter');const summary=elt('summary');const title=elt('span','chapter-title');title.append(elt('strong','',`${i+1}. ${chapter.heading}`),elt('small','',`${chapter.part||'Глава'} · ${chapter.voice||'POV не указан'} · ${wordCount(chapter.draft)} слов`));summary.append(elt('span','chapter-number',String(i+1).padStart(2,'0')),title,elt('span','chapter-arrow','›'));details.append(summary);
+  const body=elt('div','chapter-body editable-chapter-body');
+  body.append(makeField('Название главы',`workshop.chapters.${i}.heading`,chapter.heading),makeField('POV',`workshop.chapters.${i}.voice`,chapter.voice),makeField('Этап структуры',`workshop.chapters.${i}.stage`,chapter.stage),makeField('События / краткое содержание',`workshop.chapters.${i}.event`,chapter.event,{area:true,rows:4}),makeField('Препятствие',`workshop.chapters.${i}.pressure`,chapter.pressure,{area:true,rows:2}),makeField('Изменение / крючок',`workshop.chapters.${i}.hook`,chapter.hook,{area:true,rows:2}),makeField('Статус главы',`workshop.chapters.${i}.status`,chapter.status,{select:STATUS_OPTIONS}),makeField('Текст главы',`workshop.chapters.${i}.draft`,chapter.draft,{area:true,rows:9,placeholder:'Начни писать здесь…'}),makeField('Заметки к главе',`workshop.chapters.${i}.notes`,chapter.notes,{area:true,rows:2}));
+  const row=elt('div','row-wrap');row.append(button('↑ Выше','chapter-up',i),button('↓ Ниже','chapter-down',i),button('＋ Сцена для главы','scene-for-chapter',i),button('Удалить главу','chapter-delete',i,'ghost-danger'));body.append(row);details.append(body);return details;
+ }));
+ const actions=$('chaptersActions');if(actions&&!actions.children.length){actions.append(button('＋ Глава','chapter-add'),button('↻ Новый автоплан','chapters-reset'))}
+}
+let sceneChapterFilter='all';
+function renderScenes(){const wb=state.workshop,host=$('scenesEditor');host.replaceChildren();
+ host.append(elt('p','tab-lead','Сцена — не пересказ событий, а маленькая драматическая единица: цель → сопротивление → изменение. Переставляй сцены кнопками ↑ и ↓, привязывай их к главам.'));
+ const filter=elt('label','edit-field');filter.append(elt('span','edit-label','Показать сцены главы'));const sel=elt('select','studio-input');sel.id='sceneFilter';sel.append(new Option('Все главы','all'));
+ wb.chapters.forEach(ch=>sel.append(new Option(ch.heading,ch.id)));sel.value=sceneChapterFilter;if(sel.value!==sceneChapterFilter){sceneChapterFilter='all';sel.value='all'}
+ filter.append(sel);host.append(filter);
+ const visible=wb.scenes.map((sc,i)=>({sc,i})).filter(({sc})=>sceneChapterFilter==='all'||sc.chapterId===sceneChapterFilter);
+ host.append(bar('Карточки сцен',`Показано ${visible.length} из ${wb.scenes.length}`));
+ visible.forEach(({sc,i})=>{const det=elt('details','chapter scene-card'),summary=elt('summary'),title=elt('span','chapter-title');title.append(elt('strong','',sc.title||`Сцена ${i+1}`),elt('small','',`${wb.chapters.find(ch=>ch.id===sc.chapterId)?.heading||'Без главы'} · ${STATUS_OPTIONS.find(([v])=>v===sc.status)?.[1]||'Идея'}`));summary.append(elt('span','chapter-number',String(i+1).padStart(2,'0')),title,elt('span','chapter-arrow','›'));det.append(summary);
+  const body=elt('div','chapter-body editable-chapter-body');const choices=[['','Без главы'],...wb.chapters.map((ch,ix)=>[ch.id,`${ix+1}. ${ch.heading}`])];
+  body.append(makeField('Название',`workshop.scenes.${i}.title`,sc.title),makeField('Глава',`workshop.scenes.${i}.chapterId`,sc.chapterId,{select:choices}),makeField('Чей POV',`workshop.scenes.${i}.pov`,sc.pov),makeField('Цель персонажа','workshop.scenes.'+i+'.goal',sc.goal,{area:true,rows:3}),makeField('Препятствие / конфликт',`workshop.scenes.${i}.obstacle`,sc.obstacle,{area:true,rows:2}),makeField('Поворот внутри сцены',`workshop.scenes.${i}.turn`,sc.turn,{area:true,rows:2}),makeField('Результат и переход',`workshop.scenes.${i}.outcome`,sc.outcome,{area:true,rows:2}),makeField('Статус',`workshop.scenes.${i}.status`,sc.status,{select:STATUS_OPTIONS}),makeField('Сценические заметки',`workshop.scenes.${i}.notes`,sc.notes,{area:true,rows:3}));
+  const actions=elt('div','row-wrap');actions.append(button('↑ Выше','scene-up',i),button('↓ Ниже','scene-down',i),button('Удалить','scene-delete',i,'ghost-danger'));body.append(actions);det.append(body);host.append(det)
+ });host.append(button('＋ Добавить сцену','scene-add'));
+}
+function renderBible(){const wb=state.workshop,host=$('bibleEditor'),ch=state.characters,sc=state.society,w=state.world,m=state.magic;host.replaceChildren();
+ host.append(elt('p','tab-lead','Библия мира — справочник фактов, который можно пополнять по мере написания книги. Здесь же можно изменять сгенерированные параметры, не создавая новый сюжет.'));
+ host.append(bar('Персонажи','Редактируемые анкеты'));
+ [['Протагонист',[['Имя / описание','hero'],['Цель','goal'],['Слабость','flaw'],['Секрет','secret']],'hero'],['Антагонист',[['Имя / описание','antagonist'],['Мотив','antagonistReason']],'antagonist'],['Союзник',[['Имя / описание','ally'],['Отношения','relationship']],'ally']].forEach(([label,fields,noteKey])=>{
+  const card=editorCard([bar(label)]);fields.forEach(([cap,key])=>card.append(makeField(cap,`characters.${key}`,ch[key],{area:key!=='hero'&&key!=='antagonist'&&key!=='ally',rows:2})));
+  card.append(makeField('Биография, арка, дополнительные сведения',`workshop.characterNotes.${noteKey}`,wb.characterNotes[noteKey],{area:true,rows:3}));host.append(card)
+ });
+ host.append(bar('Мир и общество'));host.append(editorCard([
+  makeField('Название мира / места','world.name',w.name),makeField('Устройство мира','world.detail',w.detail,{area:true,rows:3}),makeField('Культура','society.culture',sc.culture,{area:true,rows:2}),makeField('Табу','society.taboo',sc.taboo,{area:true,rows:2}),makeField('Политика','society.faction',sc.faction,{area:true,rows:2})
+ ]));
+ host.append(bar('Жёсткие правила магии'));host.append(editorCard([
+  makeField('Магия мира','world.magic',w.magic,{area:true,rows:2}),makeField('Цена мира','world.cost',w.cost,{area:true,rows:2}),makeField('Источник','magic.source',m.source,{area:true,rows:2}),makeField('Правило','magic.rule',m.rule,{area:true,rows:2}),makeField('Ограничение','magic.limit',m.limit,{area:true,rows:2}),makeField('Скрытая цена','magic.price',m.price,{area:true,rows:2})
+ ]));
+ host.append(bar('Справочник сущностей','Предметы, места, хронология, законы, терминология'));
+ wb.entries.forEach((en,i)=>{const card=editorCard([]);const head=elt('div','edit-cardhead');head.append(elt('strong','',`Запись ${i+1}`),button('Удалить','entry-delete',i,'ghost-danger'));card.append(head);
+ card.append(makeField('Тип записи',`workshop.entries.${i}.type`,en.type,{select:[['Локация','Локация'],['Персонаж','Персонаж'],['Предмет','Предмет'],['История','История'],['Закон магии','Закон магии'],['Термин','Термин'],['Другое','Другое']]}),makeField('Название',`workshop.entries.${i}.name`,en.name),makeField('Описание / канон',`workshop.entries.${i}.detail`,en.detail,{area:true,rows:3}),makeField('Связи и упоминания',`workshop.entries.${i}.links`,en.links,{area:true,rows:2}));host.append(card)
+ });host.append(button('＋ Новая запись в библию','entry-add'));
+}
+function auditItems(){const wb=state.workshop,issues=[],tips=[],passed=[];
+ const warn=(a,b)=>issues.push({title:a,detail:b}),tip=(a,b)=>tips.push({title:a,detail:b}),pass=(a)=>passed.push(a);
+ if(!wb.title.trim())warn('Нет рабочего названия','Добавь название в разделе «Книга».');else pass('Есть название проекта');
+ if(wordCount(wb.logline)<9)warn('Слишком краткий логлайн','Добавь героя, конфликт и ставку.');else pass('Есть развернутый логлайн');
+ if(!wb.stakes.trim())warn('Не названы ставки','Уточни, что герой потеряет.');else pass('Сформулированы ставки');
+ const drafts=wb.chapters.filter(ch=>wordCount(ch.draft)>0).length;
+ if(drafts===0)tip('Рукопись ещё не начата','Открой «Главы» и напиши первую сцену.');else pass(`${drafts} глав с текстом`);
+ if(!state.magic.limit.trim()||!state.magic.price.trim())warn('Неясные ограничения магии','Без правил и цены магия может решать конфликт слишком легко.');else pass('Зафиксированы ограничения и цена магии');
+ wb.chapters.forEach((ch,i)=>{if(!ch.heading.trim())warn(`Глава ${i+1} без названия`,'Укажи функцию главы.');if(!ch.voice.trim())warn(`Глава ${i+1} без POV`,'Укажи точку зрения.');if(!ch.event.trim())warn(`Глава ${i+1} без события`,'Запланируй изменение ситуации.');});
+ const chapterIds=new Set(wb.chapters.map(x=>x.id));wb.scenes.forEach((sc,i)=>{if(sc.chapterId&&!chapterIds.has(sc.chapterId))warn(`Сцена ${i+1} привязана к удалённой главе`,'Выбери другую главу.');if(!sc.goal.trim()||!sc.obstacle.trim()||!sc.outcome.trim())warn(`В сцене ${i+1} не хватает драматической опоры`,'Нужны цель, препятствие и результат.');if(!sc.pov.trim())warn(`Сцена ${i+1} без POV`,'Укажи наблюдателя.');});
+ wb.lines.forEach((ln,i)=>{if(!ln.goal.trim()||!ln.outcome.trim())warn(`Незавершённая линия ${i+1}`,'Нужны цель и развязка линии.');});
+ if(!wb.lines.length)tip('Нет параллельных сюжетных линий','Добавь хотя бы одну линию A.');
+ if(!wb.conflicts.length)tip('Нет оформленных конфликтов','Раздели внутренний и внешний уровень.');
+ const hs=wb.chapters.map(ch=>ch.heading.trim().toLowerCase()).filter(Boolean),dups=hs.filter((h,i)=>hs.indexOf(h)!==i);if(dups.length)tip('Повторяются названия глав','Это допустимо, если повтор имеет художественную функцию.');
+ tip('Смысловые противоречия не проверяются автоматически','Проверь вручную: кто что знает в каждой сцене; хронологию; последствия магии; мотивацию и цену решений. Это эвристическая проверка полей, а не литературный анализ ИИ.');
+ return {issues,tips,passed}
+}
+function renderAudit(){const host=$('auditEditor');host.replaceChildren();const stats=editorSummary(),results=auditItems();const headline=elt('div','insight-card');headline.append(elt('strong','',`Проверка структуры · ${results.issues.length} замечаний`),elt('p','',`Черновик: ${stats.words.toLocaleString('ru-RU')} слов. Готовых глав: ${stats.complete} из ${stats.total}. Это проверка заполненности и связей между полями, а не гарантия отсутствия сюжетных дыр.`));host.append(headline);
+ const display=(title,arr,cls)=>{host.append(bar(title,`${arr.length}`));const ul=elt('div','audit-list');if(!arr.length)ul.append(elt('p','audit-good','Сейчас замечаний нет.'));arr.forEach(r=>{const card=elt('div',`audit-item ${cls}`);card.append(elt('strong','',typeof r==='string'?r:r.title));if(r.detail)card.append(elt('p','',r.detail));ul.append(card)});host.append(ul)};
+ display('Нужно проверить',results.issues,'audit-warn');display('Рекомендации',results.tips,'audit-tip');display('Уже в порядке',results.passed,'audit-pass');
+}
+function renderWorkshop(){ensureWorkshop(state);renderBook();renderLines();renderEditableChapters();renderScenes();renderBible();renderAudit()}
+function studioProjectJSON(){return JSON.stringify({format:'atlas-project-v4',exported:new Date().toISOString(),story:state},null,2)}
+function studioMarkdown(st){const wb=ensureWorkshop(st),B=baseMd(st);let ext=`\n# Авторская версия книги: ${wb.title}\n\n## Логлайн\n${wb.logline}\n\n## Синопсис\n${wb.synopsis}\n\n## Ставки\n${wb.stakes}\n\n## Тема\n${wb.theme}\n\n## Финал\n${wb.ending}\n\n## Сюжетные линии\n`;
+ wb.lines.forEach((l,i)=>ext+=`\n### ${i+1}. ${l.name}\n- POV: ${l.pov}\n- Цель: ${l.goal}\n- Противодействие: ${l.obstacle}\n- Поворот: ${l.turn}\n- Развязка: ${l.outcome}\n`);
+ ext+='\n## Конфликты\n';wb.conflicts.forEach(c=>ext+=`\n### ${c.level}: ${c.name}\n- Желание: ${c.desire}\n- Препятствие: ${c.obstacle}\n- Ставки: ${c.stakes}\n`);
+ ext+='\n## План и рукопись по главам\n';wb.chapters.forEach((c,i)=>ext+=`\n### ${i+1}. ${c.heading}\n- POV: ${c.voice}\n- Этап: ${c.stage}\n- Статус: ${STATUS_OPTIONS.find(o=>o[0]===c.status)?.[1]||c.status}\n- События: ${c.event}\n- Осложнение: ${c.pressure}\n- Крючок: ${c.hook}\n- Заметки: ${c.notes}\n\n#### Текст\n${c.draft||'_(не написан)_'}\n`);
+ ext+='\n## Сцены\n';wb.scenes.forEach((s,i)=>ext+=`\n### Сцена ${i+1}: ${s.title}\n- Глава: ${wb.chapters.find(c=>c.id===s.chapterId)?.heading||'Не указана'}\n- POV: ${s.pov}\n- Цель: ${s.goal}\n- Препятствие: ${s.obstacle}\n- Поворот: ${s.turn}\n- Результат: ${s.outcome}\n- Заметки: ${s.notes}\n`);
+ ext+='\n## Библия мира\n';wb.entries.forEach(e=>ext+=`\n### ${e.type}: ${e.name}\n${e.detail}\n\nСвязи: ${e.links}\n`);
+ ext+='\n## Дополнительные анкеты персонажей\n';Object.entries(wb.characterNotes).forEach(([key,value])=>ext+=`\n### ${key}\n${value||'—'}\n`);
+ return `# ${wb.title}\n\n> Редактируемая рукопись «Атлас историй 4.0».\n\n`+ext+`\n---\n\n# Исходная генерация и структура\n\n`+B;
+}
+function refreshStudioAfterAction(){flushSave();render();switchTab(activeTab);updateFavorites()}
+function sceneNew(chapterId=''){const ch=state.workshop.chapters.find(x=>x.id===chapterId);return {id:makeID('scene'),chapterId,title:'Новая сцена',pov:ch?.voice||'',goal:'',obstacle:'',turn:'',outcome:'',notes:'',status:'idea'}}
+const studioActions={
+ 'line-add':()=>state.workshop.lines.push({id:makeID('line'),name:'Новая сюжетная линия',pov:'',goal:'',obstacle:'',turn:'',outcome:''}),
+ 'line-delete':i=>state.workshop.lines.splice(i,1),
+ 'conflict-add':()=>state.workshop.conflicts.push({id:makeID('conflict'),level:'Внешний',name:'Новый конфликт',desire:'',obstacle:'',stakes:''}),
+ 'conflict-delete':i=>state.workshop.conflicts.splice(i,1),
+ 'entry-add':()=>state.workshop.entries.push({id:makeID('entry'),type:'Локация',name:'Новая запись',detail:'',links:''}),
+ 'entry-delete':i=>state.workshop.entries.splice(i,1),
+ 'chapter-add':()=>state.workshop.chapters.push({id:makeID('chapter'),heading:'Новая глава',voice:povForChapter(state,state.workshop.chapters.length),event:'',stage:'',part:'Развитие',pressure:'',hook:'',draft:'',notes:'',status:'idea',scene:'Глава'}),
+ 'chapter-up':i=>{if(i>0){const a=state.workshop.chapters;[a[i],a[i-1]]=[a[i-1],a[i]]}},
+ 'chapter-down':i=>{const a=state.workshop.chapters;if(i<a.length-1)[a[i],a[i+1]]=[a[i+1],a[i]]},
+ 'chapter-delete':i=>{if(state.workshop.chapters.length===1){notify('Оставь хотя бы одну главу');return}if(wordCount(state.workshop.chapters[i]?.draft)>0&&!window.confirm('Удалить главу вместе с написанным текстом? Перед удалением рекомендуем скачать резервный JSON.'))return;const [gone]=state.workshop.chapters.splice(i,1);state.workshop.scenes.forEach(s=>{if(s.chapterId===gone.id)s.chapterId=''})},
+ 'chapters-reset':()=>{const drafted=state.workshop.chapters.filter(c=>wordCount(c.draft)>0).length;
+  if(!window.confirm(`Заменить план на новый шаблон? ${drafted?'ВНИМАНИЕ: в текущем плане есть написанный текст ('+drafted+' глав). Он будет удалён из рабочего плана. Перед продолжением скачай «Проект · JSON».':'Твои правки к текущим главам будут удалены.'}`))return;
+  const fresh=chapterPlan(state).map(ch=>({...ch,id:makeID('chapter'),draft:'',notes:'',status:'idea'}));state.workshop.chapters=fresh;state.workshop.scenes=state.workshop.scenes.map(s=>({...s,chapterId:''}));sceneChapterFilter='all'},
+ 'scene-add':()=>{state.workshop.scenes.push(sceneNew(sceneChapterFilter==='all'?'':sceneChapterFilter));sceneChapterFilter='all'},
+ 'scene-for-chapter':i=>{state.workshop.scenes.push(sceneNew(state.workshop.chapters[i]?.id));activeTab='scenes';sceneChapterFilter='all'},
+ 'scene-up':i=>{if(i>0){const a=state.workshop.scenes;[a[i],a[i-1]]=[a[i-1],a[i]]}},
+ 'scene-down':i=>{const a=state.workshop.scenes;if(i<a.length-1)[a[i],a[i+1]]=[a[i+1],a[i]]},
+ 'scene-delete':i=>{const s=state.workshop.scenes[i];if(s?.notes?.trim()&&!window.confirm('Удалить сцену вместе с заметками?'))return;state.workshop.scenes.splice(i,1)},
+ 'book-md':()=>{saveFile(studioMarkdown(state),`atlas-roman-${new Date().toISOString().slice(0,10)}.md`,'text/markdown;charset=utf-8');notify('Рукопись экспортирована')},
+ 'project-json':()=>{flushSave();saveFile(studioProjectJSON(),`atlas-project-${new Date().toISOString().slice(0,10)}.json`,'application/json');notify('Полная копия проекта скачана')},
+ 'project-import':()=>{$('projectFileInput').click()}
+};
+$('storyContent').addEventListener('input',event=>{const field=event.target.closest('[data-edit]');if(!field||!state)return;putByPath(state,field.dataset.edit,field.value);queueSave();
+ if(field.dataset.edit==='workshop.title')$('storyTitle').textContent=field.value;
+ if(field.dataset.edit==='workshop.logline')$('logline').textContent=field.value;
+});
+$('storyContent').addEventListener('change',event=>{const field=event.target.closest('[data-edit]');if(field&&state){putByPath(state,field.dataset.edit,field.value);queueSave()}});
+$('storyContent').addEventListener('click',event=>{const btn=event.target.closest('[data-action]');if(!btn||!state)return;const handler=studioActions[btn.dataset.action];if(!handler)return;const i=Number(btn.dataset.index);handler(Number.isFinite(i)?i:undefined);if(!['book-md','project-json','project-import'].includes(btn.dataset.action))refreshStudioAfterAction();});
+$('storyContent').addEventListener('change',event=>{if(event.target.id==='sceneFilter'){sceneChapterFilter=event.target.value;renderScenes();}});
+$('projectFileInput').addEventListener('change',async(event)=>{const file=event.target.files?.[0];if(!file)return;try{
+ if(file.size>8e6)throw Error('Файл слишком большой');const json=JSON.parse(await file.text());if(json.format!=='atlas-project-v4')throw Error('Это не файл проекта Атласа 4.0');const incoming=normalizedStory(json.story);if(!incoming)throw Error('В файле нет корректной истории');state=incoming;ensureWorkshop(state);generation=Math.max(generation,state.number||0);syncUI(state.settings);refreshStudioAfterAction();switchTab('book',true);notify('Проект открыт — можно продолжить работу');
+ }catch(e){notify(`Не удалось открыть: ${e.message}`)}finally{event.target.value=''}});
+
+window.addEventListener('pagehide',()=>{if(state){clearTimeout(saveTimer);saveEdits()}});
+
+function md(st){return studioMarkdown(st)}
+function render(){if(!state)return;ensureWorkshop(state);const st=state,c=CORES[st.coreIndex],g=GENRES[st.settings.genre],t=TONES[st.settings.tone],theme=THEMES[st.settings.theme],ch=st.characters,m=st.magic,sc=st.society,w=st.world;
+ $('storyNumber').textContent=String(st.number||generation||1).padStart(3,'0');
+ $('tags').replaceChildren(...[g.name,t.name,theme.name,STRUCTURES[st.settings.structure].name].map((tag,i)=>elt('span',i===0?'tag gold':'tag',tag)));
+ $('storyTitle').textContent=st.workshop.title;
+ $('logline').textContent=st.workshop.logline;
+ appendFacts('storyFacts',[
+  ['Главный герой',ch.hero],['Мир',`${w.name}. ${w.detail}`],
+  ['Магия и цена',`${w.magic} Дополнительная цена: ${m.price}`],
+  ['Противодействие',ch.antagonist],['Внутренний путь',theme.arc],
+  ['Основная задача',c.goal]
+ ]);
+ renderBeats('timeline',beats(st).filter((_,i)=>i===0||i===Math.floor(beats(st).length/3)||i===Math.floor(beats(st).length*2/3)||i===beats(st).length-1));
+ $('storyEnding').textContent=endingFor(st);
+ $('storyQuestion').textContent=`${c.question} Дополнительный ракурс: ${theme.question}`;
+ $('authorNotes').value=st.notes||'';
+ $('structureHeading').textContent=STRUCTURES[st.settings.structure].name;
+ $('structureDescription').textContent=STRUCTURES[st.settings.structure].description;
+ $('povAdvice').textContent=POVS[st.settings.pov].advice;
+ $('povSample').textContent=povSample(st);
+ renderBeats('structureTimeline',beats(st));
+ $('characterCards').replaceChildren(
+  characterCard('Протагонист',ch.hero,[['Желание',ch.goal],['Внутренний изъян',ch.flaw],['Секрет',ch.secret],['Изменение',theme.arc]]),
+  characterCard('Антагонист',ch.antagonist,[['Убеждение',ch.antagonistReason],['Метод давления',`Использует конфликт из истории «${c.title}» и хочет контролировать его исход.`],['Уязвимость',`Собственные действия противоречат главной теме: ${theme.question}`]]),
+  characterCard('Союзник',ch.ally,[['Роль в действии',ch.relationship],['Своя ставка',`Не готов нарушить запрет: ${sc.taboo}.`],['Потенциал конфликта','Приближаясь к цели, союзник может потребовать от героя изменить план.']])
+ );
+ $('relationshipLine').textContent=`${ch.relationship} Приближение к главной цели заставляет героев испытать доверие на практике.`;
+ appendFacts('worldFacts',[
+  ['Название и облик',`${w.name}. ${w.detail}`],['Культура',sc.culture],
+  ['Общественный запрет',`Запрещено ${sc.taboo}.`],['Политическое напряжение',sc.faction]
+ ]);
+ appendFacts('magicFacts',[
+  ['Основа магии',w.magic],['Источник силы',`Магия питается через ${m.source}.`],
+  ['Правило',m.rule],['Жёсткое ограничение',m.limit],
+  ['Установленная миром цена',w.cost],['Скрытая цена',m.price]
+ ]);
+ $('worldConflict').textContent=`Если герой воспользуется магией, сработает ограничение: ${m.limit} Это усложняет цель: ${c.goal} Запрет общества — ${sc.taboo}.`;
+ renderWorkshop();
+ const fav=favorites.some(x=>x.story?.id===st.id);$('saveLabel').textContent=fav?'В избранном':'Сохранить';$('save').classList.toggle('active',fav);
+ persistCurrent();
+}
+function switchTab(key,scroll=false){if(!['idea','structure','characters','world','book','lines','chapters','scenes','bible','audit'].includes(key))return;if(state && activeTab!==key)render();activeTab=key;
+ document.querySelectorAll('.studio-tab').forEach(tab=>{let on=tab.dataset.tab===key;tab.classList.toggle('active',on);tab.setAttribute('aria-selected',String(on));tab.tabIndex=on?0:-1;});
+ document.querySelectorAll('.studio-panel').forEach(p=>{p.hidden=p.id!==`panel-${key}`});
+ if(scroll&&window.innerWidth<=730)$('studioTabs').scrollIntoView({block:'start',behavior:'smooth'});
+}
+function baseMd(st){const c=CORES[st.coreIndex],ch=st.characters,th=THEMES[st.settings.theme],w=st.world,m=st.magic,sc=st.society,bb=beats(st),chap=chapterPlan(st);
+ return `# ${c.title}\n\n## Паспорт проекта\n- Поджанр: ${GENRES[st.settings.genre].name}\n- Атмосфера: ${TONES[st.settings.tone].name}\n- Объём: ${{short:'Рассказ',novella:'Повесть',novel:'Роман'}[st.settings.length]}\n- Тема: ${th.name}\n- POV: ${POVS[st.settings.pov].name}\n- Структура: ${STRUCTURES[st.settings.structure].name}\n- Тип финала: ${ENDINGS[st.settings.endType].name}\n\n## Логлайн\n${c.hook} Место действия — ${w.name}.\n\n## Персонажи\n### Протагонист: ${ch.hero}\n- Желание: ${ch.goal}\n- Изъян: ${ch.flaw}\n- Секрет: ${ch.secret}\n- Арка: ${th.arc}\n\n### Антагонист: ${ch.antagonist}\n- Мотив: ${ch.antagonistReason}\n\n### Союзник: ${ch.ally}\n- Отношения: ${ch.relationship}\n\n## Мир\n- Место: ${w.name}. ${w.detail}\n- Культура: ${sc.culture}\n- Запрет: ${sc.taboo}\n- Конфликт власти: ${sc.faction}\n\n## Магическая система\n- Способность: ${w.magic}\n- Источник: ${m.source}\n- Правило: ${m.rule}\n- Ограничение: ${m.limit}\n- Цена мира: ${w.cost}\n- Скрытая цена: ${m.price}\n\n## Повороты\n- Основной: ${c.twist}\n- Дополнительный: ${st.twist.reveal}\n- Предвестие: ${st.twist.clue}\n\n## Структура: ${STRUCTURES[st.settings.structure].name}\n${bb.map((b,i)=>`${i+1}. **${b.title}.** ${b.text}`).join('\n\n')}\n\n## План по ${st.settings.length==='short'?'сценам':'главам'}\n${chap.map(chap=>`### ${chap.scene} ${chap.n}: ${chap.heading}\n- Часть: ${chap.part}\n- POV: ${chap.voice}\n- Этап: ${chap.stage}\n- События: ${chap.event}\n- Осложнение: ${chap.pressure}\n- Крючок: ${chap.hook}`).join('\n\n')}\n\n## Возможный финал\n${endingFor(st)}\n\n## Вопрос автору\n${c.question} ${th.question}\n\n## Заметки автора\n${st.notes||'(пока пусто)'}\n\n---\nСгенерировано в «Атласе историй» 3.0. Шаблоны предназначены для творческой доработки.\n`;
+}
+function notify(msg){const el=$('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2900)}
+function syncUI(s){for(const k of ['genre','tone','length','theme','pov','structure','endType','heroName']){if($(k)&&s[k]!==undefined)$(k).value=s[k]}}
+function updateFavorites(){const list=$('favoritesList');list.replaceChildren();$('favoritesCount').textContent=`${favorites.length} сохранено`; $('emptyFavorites').hidden=!!favorites.length;
+ for(const fav of favorites){const story=fav.story,c=CORES[story?.coreIndex];if(!c)continue;
+  const box=elt('div','fav-item'),open=elt('button','fav-open'),remove=elt('button','fav-remove','×');open.type=remove.type='button';remove.title='Удалить эту историю';
+  open.append(elt('span','fav-title',story.workshop?.title||c.title),elt('span','fav-meta',`${GENRES[story.settings.genre].name} • ${STRUCTURES[story.settings.structure].name}`));
+  open.addEventListener('click',()=>{state=normalizedStory(story);generation=Math.max(generation,Number(state.number)||0);syncUI(state.settings);render();switchTab('idea',true);notify('История открыта')});
+  remove.addEventListener('click',()=>{favorites=favorites.filter(x=>x.story.id!==story.id);persistFavorites();updateFavorites();render();notify('Удалено из избранного')});
+  box.append(open,remove);list.append(box);
+ }
+}
+function saveOrRemove(){if(!state)return;const n=favorites.findIndex(f=>f.story.id===state.id);
+ if(n>=0){favorites.splice(n,1);notify('История убрана из избранного')}
+ else{favorites.unshift({story:JSON.parse(JSON.stringify(state))});favorites=favorites.slice(0,100);notify('История сохранена')}
+ persistFavorites();updateFavorites();render();}
+function saveFile(content,name,type){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=elt('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000)}
+function revealStory(){if(window.innerWidth<=730){setTimeout(()=>$('studioTabs').scrollIntoView({behavior:'smooth',block:'start'}),50)}}
+// Действия главного экрана
+$('generate').addEventListener('click',()=>{if(!confirmNewStory())return;state=freshStory();render();switchTab('idea');notify('Новая история создана');revealStory()});
+$('surprise').addEventListener('click',()=>{if(!confirmNewStory())return;for(const id of ['genre','tone','length','theme','pov','structure','endType']){const el=$(id);el.selectedIndex=randIndex(el.options.length)}$('keepWorld').checked=false;$('keepCore').checked=false;state=freshStory();render();switchTab('idea');notify('Сгенерирована неожиданная комбинация');revealStory()});
+$('save').addEventListener('click',saveOrRemove);
+$('copy').addEventListener('click',async()=>{if(!state)return;const value=md(state);
+ try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(value)}else{const ta=elt('textarea');ta.value=value;ta.style.cssText='position:fixed;opacity:0;left:0;top:0';document.body.append(ta);ta.select();if(!document.execCommand('copy'))throw Error('copy');ta.remove()}notify('Весь проект скопирован')}catch{notify('Копирование недоступно. Попробуй «Скачать»')}});
+$('export').addEventListener('click',()=>{if(!state)return;saveFile(md(state),`atlas-istoriy-${new Date().toISOString().slice(0,10)}.md`,'text/markdown;charset=utf-8');notify('Проект скачан в Markdown')});
+document.querySelectorAll('[data-reroll]').forEach(btn=>btn.addEventListener('click',()=>{if(!state)return;switch(btn.dataset.reroll){
+ case 'characters':state.characters=makeCharacters(state.settings);state.hero=state.characters.hero;state.foe=state.characters.antagonist;break;
+ case 'world':state.world=without(GENRES[state.settings.genre].worlds,state.world);state.society=makeSociety();state.magic=makeMagic();break;
+ case 'magic':state.magic=makeMagic();break;
+ case 'twist':state.twist=makeTwist(state.twist);break;
+ }syncSaved();render();updateFavorites();notify('Этот элемент пересоздан; остальной сюжет сохранён')
+}));
+document.querySelectorAll('.studio-tab').forEach(btn=>btn.addEventListener('click',()=>switchTab(btn.dataset.tab)));
+$('studioTabs').addEventListener('keydown',event=>{if(!['ArrowRight','ArrowLeft','Home','End'].includes(event.key))return;const arr=[...document.querySelectorAll('.studio-tab')],index=arr.indexOf(document.activeElement);if(index<0)return;event.preventDefault();const newIndex=event.key==='Home'?0:event.key==='End'?arr.length-1:(index+(event.key==='ArrowRight'?1:-1)+arr.length)%arr.length;switchTab(arr[newIndex].dataset.tab);arr[newIndex].focus()});
+$('expandChapters').addEventListener('click',()=>{const arr=[...document.querySelectorAll('.chapter')],all=arr.every(x=>x.open);arr.forEach(x=>x.open=!all);$('expandChapters').textContent=all?'Развернуть все':'Свернуть все'});
+$('authorNotes').addEventListener('input',()=>{if(!state)return;state.notes=$('authorNotes').value;persistCurrent();syncSaved()});
+// Быстрая смена POV, структуры, формата и типа развязки не уничтожает созданных персонажей и мир.
+for(const k of ['pov','structure','length','endType']){$(k).addEventListener('change',()=>{if(!state)return;state.settings[k]=$(k).value;syncSaved();render();updateFavorites();notify('План истории обновлён без смены сюжета')})}
+// Бэкап библиотеки для переноса между устройствами/браузерами.
+const favPanel=$('saved');const archive=elt('div','archive-actions');archive.style.cssText='display:flex;gap:8px;margin-top:15px;flex-wrap:wrap';
+const backup=elt('button','secondary','↓ Архив JSON'),restore=elt('button','secondary','↑ Импорт JSON'),file=elt('input');
+backup.type=restore.type='button';backup.style.cssText=restore.style.cssText='font-size:11px;padding:8px 10px;min-height:35px';file.type='file';file.accept='.json,application/json';file.style.display='none';archive.append(backup,restore,file);favPanel.append(archive);
+backup.addEventListener('click',()=>{saveFile(JSON.stringify({format:'atlas-v4',exported:new Date().toISOString(),current:state,favorites},null,2),`atlas-istoriy-archive-${new Date().toISOString().slice(0,10)}.json`,'application/json');notify('Архив историй сохранён')});
+restore.addEventListener('click',()=>file.click());
+file.addEventListener('change',async()=>{const selected=file.files?.[0];if(!selected)return;try{
+ if(selected.size>6e6)throw Error('Слишком большой файл');const data=JSON.parse(await selected.text());if(!['atlas-v4','atlas-v3','atlas-v2'].includes(data.format)||!Array.isArray(data.favorites))throw Error('Не архив приложения');
+ const incoming=data.favorites.slice(0,150).map(x=>({story:normalizedStory(x.story)})).filter(x=>x.story);const ids=new Set(favorites.map(f=>f.story.id));for(const f of incoming){if(!ids.has(f.story.id)){favorites.push(f);ids.add(f.story.id)}}favorites=favorites.slice(0,100);
+ if(data.current){const restored=normalizedStory(data.current);if(restored){state=restored;syncUI(state.settings)}}
+ persistFavorites();updateFavorites();render();notify(`Импортировано ${incoming.length} историй (дубликаты пропущены)`);
+ }catch(e){notify(`Ошибка импорта: ${e.message}`)}finally{file.value=''}});
+// Прочитать сохранённые истории из версии 1/2, не теряя их при обновлении приложения.
+const saved=safeParse(favKey,[]);
+if(Array.isArray(saved))favorites=saved.slice(0,100).map(f=>({story:normalizedStory(f?.story)})).filter(f=>f.story);
+const old=normalizedStory(safeParse(currentKey,null));
+if(old){state=old;generation=Number(state.number)||1;syncUI(state.settings)}
+if(!state)state=freshStory();
+updateFavorites();render();switchTab('idea');
+if('serviceWorker'in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+
+})();
+</script>
+</body>
+</html>
